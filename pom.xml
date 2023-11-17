@@ -11,12 +11,6 @@
     <modules>
         <module>java-coding-algorithms</module>
         <module>java-coding-worktest</module>
-        <!--已经注释-->
-        <!--        <module>javamain-brpcjava01</module>-->
-        <!--        <module>javamain-brpcjava02</module>-->
-        <!--		<module>javamain-annotation</module>	-->
-        <!--        <module>javamain-elasticJobA</module>       -->
-
     </modules>
 
 </project>
