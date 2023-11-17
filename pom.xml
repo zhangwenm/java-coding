@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.geekzhang.javaproject</groupId>
+    <artifactId>java-coding</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>java-coding-algorithms</module>
+        <module>java-coding-worktest</module>
+        <!--已经注释-->
+        <!--        <module>javamain-brpcjava01</module>-->
+        <!--        <module>javamain-brpcjava02</module>-->
+        <!--		<module>javamain-annotation</module>	-->
+        <!--        <module>javamain-elasticJobA</module>       -->
+
+    </modules>
+
+</project>
