@@ -1,4 +1,4 @@
-package com.geekzhang.worktest.test;
+package com.geekzhang.worktest.workutil.dto;
 
 
 import com.alibaba.fastjson.JSON;

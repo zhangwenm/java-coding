@@ -1,7 +1,7 @@
 package com.geekzhang.worktest.workutil;
 
+import com.geekzhang.worktest.workutil.dto.HeartbeatMsg;
 import com.google.common.collect.Lists;
-import daliy.test.HeartbeatMsg;
 
 import java.util.Comparator;
 
