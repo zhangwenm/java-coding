@@ -51,7 +51,7 @@ public class ExportFromEs {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n     \"size\": 20000,  \n  \"from\": 0 ,\n    \"query\":{\n        \"bool\":{\n            \"must\":[\n              \n                {\n                    \"match\":{\n                        \"hardwareVersion\":\"2.0\"\n                    }\n                },\n                {\n                    \"match\":{\n                        \"type\":\"PHONE\"\n                    }\n                }\n            ]\n        }\n    }\n}\n\n\n\n");
             Request request = new Request.Builder()
-                    .url("https://esnew.yunjichina.com.cn/device.info.phone/doc/_search")
+                    .url("https://baid.com.cn/device.info.phone/doc/_search")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Authorization", "Basic YWRtaW46eXVuMTdqaTE4")
