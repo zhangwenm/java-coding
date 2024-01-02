@@ -12,5 +12,12 @@
         <module>java-coding-algorithms</module>
         <module>java-coding-worktest</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>cc.duduhuo.util</groupId>
+            <artifactId>digest-util</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+    </dependencies>
 
 </project>
