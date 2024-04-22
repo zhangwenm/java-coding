@@ -2,12 +2,14 @@ package com.geekzhang.worktest.workutil;
 
 
 import com.alibaba.fastjson2.JSON;
+import com.geekzhang.worktest.workutil.dto.HeartbeatMsg;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author zwm
@@ -28,11 +32,28 @@ public class MapUtil {
         add("HT");
     }};
     public static void main(String[] args) throws ParseException {
+
+        List<String> productList = Arrays.stream("123123123123".split(",")).collect(Collectors.toList());
+        System.out.printf("productList:%s",productList);
+
         Map<String, String> map1 = new HashMap<>();
         map1.put("productId", "1");
         map1.put("vpn", "3");
         map1.put("type", "2");
+        HeartbeatMsg targetPermissions = new HeartbeatMsg();
+        targetPermissions.setProductId("1:");
+        targetPermissions.setType("1");
+        HeartbeatMsg targetPermissions1 = new HeartbeatMsg();
+        targetPermissions1.setProductId("2:");
+        targetPermissions1.setType("2");
+        HeartbeatMsg targetPermissions2 = new HeartbeatMsg();
+        targetPermissions2.setProductId("3:");
+        targetPermissions2.setType("3");
+        List<HeartbeatMsg> list = Lists.newArrayList(targetPermissions, targetPermissions1, targetPermissions2);
 
+        Map<String,HeartbeatMsg> targetPermissionsMap = list.stream().collect(Collectors.toMap(HeartbeatMsg::getProductId, Function.identity()));
+
+        System.out.printf("targetPermissionsMap:%s",targetPermissionsMap.containsKey("1:"));
 
         List<String> kvs = new ArrayList<>();
         for (Map.Entry<String, String> entry : map1.entrySet()) {

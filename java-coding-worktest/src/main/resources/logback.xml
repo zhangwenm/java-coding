@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-26(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{1} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/server.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-26(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{1} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="REQUEST_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/request.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/request.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}  %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org" level="WARN"/>
+
+    <logger additivity="false" level="INFO" name="REQUEST">
+        <appender-ref ref="REQUEST_FILE"/>
+    </logger>
+
+    <root level="debug">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
+    </root>
+<!--    <root level="DEBUGGER">-->
+<!--        <appender-ref ref="FILE" />-->
+<!--        -->
+<!--        <appender-ref ref="INFO"/>-->
+<!--    </root>-->
+</configuration>

@@ -30,7 +30,7 @@ public class HeartbeatMsg {
     /*
      * @desc 电流
      */
-    private Integer current;
+    private int current;
     /*
      * @desc 电压
      */
