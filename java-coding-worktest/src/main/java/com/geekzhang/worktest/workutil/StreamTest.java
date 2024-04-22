@@ -13,15 +13,21 @@ import java.util.Comparator;
 public class StreamTest {
     static final int MAXIMUM_CAPACITY = 1 << 30;
     public static void main(String[] args) {
+
+        HeartbeatMsg paramProd = new HeartbeatMsg();
+        paramProd.setCurrent(1);
+
         HeartbeatMsg heartbeatMsg1 = new HeartbeatMsg();
         heartbeatMsg1.setCurrent(1);
         HeartbeatMsg heartbeatMsg2 = new HeartbeatMsg();
-        heartbeatMsg2.setCurrent(2);
+        heartbeatMsg2.setCurrent(1);
         HeartbeatMsg heartbeatMsg3 = new HeartbeatMsg();
-        heartbeatMsg3.setCurrent(3);
+        heartbeatMsg3.setCurrent(1);
         Lists.newArrayList(heartbeatMsg1, heartbeatMsg2, heartbeatMsg3).stream().max(Comparator.comparing(HeartbeatMsg::getCurrent)).ifPresent(e -> {
             System.out.println("max:" + e.getCurrent());
         });
+
+        HeartbeatMsg  repeatName = Lists.newArrayList(heartbeatMsg1, heartbeatMsg2, heartbeatMsg3).stream().filter(ele->ele.getCurrent()!=paramProd.getCurrent()).findFirst().orElse(null);
 
 
 

@@ -15,10 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Device {
+public class Device extends  DeviceUp{
 
-    @ExcelIgnore
-    private String noid;
 
     @ColumnWidth(20)
     @ExcelProperty("电话id")
