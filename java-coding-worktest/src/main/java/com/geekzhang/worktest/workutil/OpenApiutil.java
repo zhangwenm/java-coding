@@ -28,7 +28,7 @@ public class OpenApiutil   {
     private static void validateOpenSign(String appname, Long ts,String secret) {
         System.out.println("ts:"+ts);
         Map<String, String> params = new HashMap(){{
-            put("productId", "GGGI0321410807923");
+            put("productId", "");
             put("floor","0");
 
         }};;
@@ -54,7 +54,7 @@ public class OpenApiutil   {
         System.out.println(" signRes:"+signRes);
     }
     public static void main(String[] args) {
-        validateOpenSign("test",new Date().getTime(),"df556ef607b8b583baa5e8b6afc5a205");
+        validateOpenSign("test",new Date().getTime(),"");
     }
 
 
