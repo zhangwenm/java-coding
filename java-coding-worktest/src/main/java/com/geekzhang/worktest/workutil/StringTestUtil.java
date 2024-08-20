@@ -40,6 +40,20 @@ public class StringTestUtil {
             System.out.println("date:"+date);
         }
         validateOpenSign("executor");
+
+
+        System.out.println("1253022531540094976_DHTZJS：len："+"1253022531540094976_DHTZJS".length());
+
+        String routerNumber = "35671";
+
+        String softwareVersion = "v2";
+
+        if(StringUtils.isNotBlank(routerNumber)){
+            Integer.parseInt(routerNumber);
+            softwareVersion = new BigDecimal(routerNumber).compareTo(new BigDecimal(35673)) >= 0 ? "v3" :"v2";
+        }
+        System.out.println("softwareVersion:"+"（Z53224）如家商旅酒店2.0（青岛）城阳黑龙江北路城中城凤岗路地铁站店（特）".length());
+
     }
     private static void validateOpenSign(String module) {
         String key = "";
