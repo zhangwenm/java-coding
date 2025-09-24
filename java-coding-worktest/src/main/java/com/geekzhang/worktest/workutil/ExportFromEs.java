@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geekzhang.worktest.workutil.dto.Device;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
@@ -15,7 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zwm
@@ -32,8 +37,8 @@ public class ExportFromEs {
         try {
 
 
-                String jsonString = " \"{\\n     \\\"size\\\": 10000,  \\n  \\\"from\\\": 10000 ,\\n    \\\"query\\\":{\\n        \\\"bool\\\":{\\n            \\\"must\\\":[\\n              \\n                {\\n                    \\\"match\\\":{\\n                        \\\"hardwareVersion\\\":\\\"2.0\\\"\\n                    }\\n                },\\n                {\\n                    \\\"match\\\":{\\n                        \\\"type\\\":\\\"PHONE\\\"\\n                    }\\n                }\\n            ]\\n        }\\n    }\\n}\\n\\n\\n\\n\");";
-//                DocumentContext context = JsonPath.parse(jsonString);
+
+            //                DocumentContext context = JsonPath.parse(jsonString);
 
                 // 修改 JSON 数据
 //                context.set("$.query.bool.must[0].match.hardwareVersion","2.0");
@@ -49,9 +54,18 @@ public class ExportFromEs {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, "{\n     \"size\": 20000,  \n  \"from\": 0 ,\n    \"query\":{\n        \"bool\":{\n            \"must\":[\n              \n                {\n                    \"match\":{\n                        \"hardwareVersion\":\"2.0\"\n                    }\n                },\n                {\n                    \"match\":{\n                        \"type\":\"PHONE\"\n                    }\n                }\n            ]\n        }\n    }\n}\n\n\n\n");
+
+            Map<String, String> filters = new HashMap<>();
+            filters.put("placeName", "上海北外滩四平路希尔顿欢朋酒店");
+            filters.put("provinceName", "上海市");
+            filters.put("address", "四平路870号");
+
+            String jsonBody = buildEsQuery(filters);
+
+            RequestBody body = RequestBody.create(mediaType, jsonBody);
+
             Request request = new Request.Builder()
-                    .url("https://baid.com.cn/device.info.phone/doc/_search")
+                    .url("https://wwww.com.cn/device.info.phone/doc/_search")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Authorization", "Basic YWRtaW46eXVuMTdqaTE4")
@@ -74,13 +88,13 @@ public class ExportFromEs {
 
                     Device device = new Device();
                     device.setProductId(productId);
-                    device.setIp(phoneIp);
-                    device.setPlace(placeName);
-                    device.setNetflag("Y");
-                    if(StringUtils.isBlank(iccid)){
-                        device.setNetflag("N");
-                    }
-                    device.setHeart(date);
+//                    device.setIp(phoneIp);
+//                    device.setPlace(placeName);
+//                    device.setNetflag("Y");
+//                    if(StringUtils.isBlank(iccid)){
+//                        device.setNetflag("N");
+//                    }
+//                    device.setHeart(date);
                     list.add(device);
                 });
                 // do something with line
@@ -91,5 +105,48 @@ public class ExportFromEs {
         // 如果这里想使用03 则 传入excelType参数即可
         EasyExcel.write("/Users/admin/Downloads/phone2.xlsx",Device.class).sheet("模板").doWrite(list);
 
+    }
+    public static String buildEsQuery(Map<String, String> filters) throws Exception {
+        Map<String, Object> query = new HashMap<>();
+        Map<String, Object> bool = new HashMap<>();
+        List<Map<String, Object>> must = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : filters.entrySet()) {
+            Map<String, Object> match = new HashMap<>();
+            match.put(entry.getKey(), entry.getValue());
+            must.add(Collections.singletonMap("match", match));
+        }
+
+        bool.put("must", must);
+        query.put("bool", bool);
+
+        Map<String, Object> root = new HashMap<>();
+        root.put("query", query);
+
+        // 转json字符串
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+    }
+    public static String buildEsQueryIn(Map<String, String> filters) throws Exception {
+        Map<String, Object> query = new HashMap<>();
+        Map<String, Object> bool = new HashMap<>();
+        List<Map<String, Object>> must = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : filters.entrySet()) {
+            Map<String, Object> terms = new HashMap<>();
+            List<String> values = Arrays.asList(entry.getValue().split(","));
+            terms.put(entry.getKey(), values);
+            must.add(Collections.singletonMap("terms", terms));
+        }
+
+        bool.put("must", must);
+        query.put("bool", bool);
+
+        Map<String, Object> root = new HashMap<>();
+        root.put("query", query);
+
+        // 转json字符串
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
     }
 }

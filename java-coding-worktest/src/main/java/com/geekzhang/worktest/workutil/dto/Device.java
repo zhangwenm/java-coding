@@ -19,22 +19,34 @@ public class Device extends  DeviceUp{
 
 
     @ColumnWidth(20)
-    @ExcelProperty("电话id")
+    @ExcelProperty("设备SN")
     private String productId;
     @ColumnWidth(20)
-    @ExcelProperty("ip")
-    private String ip;
+    @ExcelProperty("place_name")
+    private String placeName;
     @ColumnWidth(20)
-    @ExcelProperty("地点")
-    private String place;
+    @ExcelProperty("city_name")
+    private String dummyCityName;
     @ColumnWidth(20)
-    @ExcelProperty("4G")
-    private String netflag;
+    @ExcelProperty("address")
+    private String address;
     @ColumnWidth(20)
-    @ExcelProperty("固件")
-    private String mirror;
+    @ExcelProperty("province_name")
+    private String provinceName;
     @ColumnWidth(20)
-    @ExcelProperty("心跳")
-    private String heart;
+    @ExcelProperty("group_name")
+    private String groupName;
+    @ColumnWidth(20)
+    @ExcelProperty("district_name")
+    private String districtName;
+    @ColumnWidth(20)
+    @ExcelProperty("place_id")
+    private String placeId;
+    @ColumnWidth(20)
+    @ExcelProperty("chassis_id（底盘ID）")
+    private String chassisId;
+    @ColumnWidth(20)
+    @ExcelProperty("类型")
+    private String type;
 
 }
