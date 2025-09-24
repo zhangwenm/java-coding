@@ -1,5 +1,6 @@
 package com.geekzhang.worktest.workutil;
 
+import com.alibaba.fastjson2.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -8,11 +9,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author zwm
@@ -23,6 +27,7 @@ public class DateUtils {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm");
     private static final DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm");
     private static final DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static String timestampToString(Long date) {
         Instant instant = Instant.ofEpochMilli(date);
 
@@ -33,7 +38,7 @@ public class DateUtils {
         LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
 
         // 使用 DateTimeFormatter 格式化日期时间
-        String res  = localDateTime.format(formatter);
+        String res  = localDateTime.format(formatter3);
 
 
         return res;
@@ -92,6 +97,18 @@ public class DateUtils {
         System.out.println("LocalDate.now():"+LocalDate.now().toString());
 
 getMillion();
+
+        List<Date> dates = new ArrayList<>();
+
+        dates.add(new Date(new Date().getTime()-100));
+        dates.add(new Date());
+        dates.add(new Date(new Date().getTime()-200));
+        dates.sort(Comparator.comparing(Date::getTime).reversed());
+        System.out.println("paixu :"+JSON.toJSONString(dates));
+
+        Date date1 = new Date();
+        Date date2 = new Date(new Date().getTime()-200);
+        System.out.println("after:"+date1.after(date2));
     }
 
 

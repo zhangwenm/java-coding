@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.autohome.springbootcamundademo.mybatis.mapper.ci.CamundaProcessInfoMapper">
+
+    <resultMap id="camundaProcessInfoResultMap" type="com.autohome.springbootcamundademo.mybatis.entity.ci.CamundaProcessInfo">
+        <id column="id" property="id" />
+        <result column="process_type" property="processType" />
+        <result column="process_key" property="processKey" />
+        <result column="process_definition_xml" property="processDefinitionXml" />
+        <result column="process_definition_version" property="processDefinitionVersion" />
+        <result column="created_stime" property="createdStime" />
+        <result column="modified_stime" property="modifiedStime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+    <insert id="save" parameterType="com.autohome.springbootcamundademo.mybatis.entity.ci.CamundaProcessInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into camunda_process_info (process_type, process_key, process_definition_xml, process_definition_version, is_del)
+        values (#{processType}, #{processKey}, #{processDefinitionXml}, #{processDefinitionVersion}, 0)
+    </insert>
+    <update id="update" parameterType="com.autohome.springbootcamundademo.mybatis.entity.ci.CamundaProcessInfo">
+        update camunda_process_info
+        <set>
+            modified_stime = now(),
+            <if test="processType != null">process_type = #{processType},</if>
+            <if test="processKey != null">process_key = #{processKey},</if>
+            <if test="processDefinitionXml != null">process_definition_xml = #{processDefinitionXml},</if>
+            <if test="processDefinitionVersion != null">process_definition_version = #{processDefinitionVersion},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <select id="getAllCamundaProcessInfo"
+            resultMap="camundaProcessInfoResultMap">
+        select * from camunda_process_info
+    </select>
+    <select id="getCamundaInfoById"
+            resultMap="camundaProcessInfoResultMap">
+        select * from camunda_process_info where id = #{id}
+    </select>
+    <select id="getCamundaProcessInfo"
+            resultMap="camundaProcessInfoResultMap" parameterType="com.autohome.springbootcamundademo.mybatis.entity.ci.CamundaProcessInfo">
+        select * from camunda_process_info
+        <where>
+            <if test="processType != null">and process_type like concat( "%",#{processType},"%")</if>
+            <if test="processKey != null">and process_key = #{processKey}</if>
+            <if test="processDefinitionXml != null">and process_definition_xml = #{processDefinitionXml}</if>
+            <if test="processDefinitionVersion != null">and process_definition_version = #{processDefinitionVersion}</if>
+        </where>
+    </select>
+</mapper>

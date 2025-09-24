@@ -1,7 +1,12 @@
 package com.geekzhang.worktest.workutil;
 
 import com.alibaba.excel.EasyExcel;
+import com.geekzhang.worktest.workutil.dto.Device;
+import com.geekzhang.worktest.workutil.dto.DeviceInfo;
+import com.geekzhang.worktest.workutil.dto.HdosStore;
+import com.geekzhang.worktest.workutil.dto.MeituanStoreInfo;
 import com.geekzhang.worktest.workutil.dto.MethodDto;
+import com.geekzhang.worktest.workutil.dto.PlaceInfo;
 
 /**
  * @author zwm
@@ -11,8 +16,8 @@ import com.geekzhang.worktest.workutil.dto.MethodDto;
 public class ExcelTest {
 
     public static void main(String[] args) {
-        String path = "/Users/admin/Downloads/demo.xlsx"; // 替换成你的包名
+        String path = "/Users/admin/Downloads/data/no_group.xlsx"; // 替换成你的包名
 //        InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("excel/4.xlsx");
-        EasyExcel.read(path, MethodDto.class,new UserDataListener()).sheet("Sheet1").doRead();
+        EasyExcel.read(path, MeituanStoreInfo.class, new UserDataListener()).sheet().doRead();
     }
 }

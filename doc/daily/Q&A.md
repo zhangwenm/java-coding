@@ -122,7 +122,8 @@ String[] arr = res.split(":");
   </annotationProcessorPaths>
   </configuration>
   </plugin>
-
+## ping
+curl -s -o /dev/null -I --connect-timeout 3 179.169.215.58 && echo "主机可达" || echo "主机不可达"
 
 
 

@@ -1,6 +1,11 @@
 package com.geekzhang.worktest.test;
 
-import org.apache.logging.log4j.core.util.Assert;
+
+
+
+
+
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 
@@ -18,7 +23,7 @@ public class Circulatory {
         BigDecimal b1 = new BigDecimal(10.0);
         String indexName = String.format("%sdevice.info.yunfan/doc", "123");
         System.out.println(indexName);
-        Assert.requireNonEmpty(str,"str is empty");
+        Assert.notNull(str,"str is empty");
         System.out.println("%:"+4/3);
     }
 

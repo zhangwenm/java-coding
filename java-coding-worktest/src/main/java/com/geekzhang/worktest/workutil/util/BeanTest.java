@@ -11,7 +11,7 @@ import com.geekzhang.worktest.workutil.dto.DeviceUp;
 public class BeanTest {
     public static void main(String[] args) {
         Device device = new Device();
-        device.setIp("qweqwe");
+        device.setType("qweqwe");
 
 
         DeviceUp deviceUp = device;
