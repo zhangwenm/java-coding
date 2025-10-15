@@ -8,14 +8,11 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.geekzhang.worktest.workutil.dto.Device;
 import com.geekzhang.worktest.workutil.dto.DeviceInfo;
 import com.geekzhang.worktest.workutil.dto.HdosStore;
 import com.geekzhang.worktest.workutil.dto.MeituanStoreInfo;
 import com.geekzhang.worktest.workutil.dto.MeituanStoreInfoRegister;
-import com.geekzhang.worktest.workutil.dto.MethodDto;
 import com.geekzhang.worktest.workutil.dto.PlaceInfo;
 import com.geekzhang.worktest.workutil.util.JsonFileUtil;
 import com.google.common.collect.Lists;
@@ -29,15 +26,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,21 +43,19 @@ import java.util.stream.Collectors;
  * @date 2023年12月22日 14:31
  */
 @Slf4j
-public class UserDataListener extends AnalysisEventListener<MeituanStoreInfo> {
-    private Map<String,HdosStore> methodDtos = new HashMap<>();
+public class MeiTuanDataListener extends AnalysisEventListener<MeituanStoreInfo> {
+
     private List<MeituanStoreInfo> oldMethodDtos = new ArrayList<>();
-    private Map<String,String> map = new HashMap<>();
     @Override
     public void invoke(MeituanStoreInfo data, AnalysisContext context) {
         // 处理每一行数据
         oldMethodDtos.add(data);
-
         // 在这里可以将数据保存到数据库等业务逻辑
     }
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
-
+        doRegister(context);
 
     }
     public void doAnalyse(AnalysisContext context) {
@@ -158,14 +148,12 @@ public class UserDataListener extends AnalysisEventListener<MeituanStoreInfo> {
                 meituanStoreInfoRegister.setServicePhone("400-608-0917");
                 meituanStoreInfoRegister.setKeyword( methodDto.getStoreName()+","+methodDto.getAddress());
 
-
                 meituanStoreInfoRegisters.add(meituanStoreInfoRegister);
             }
 
 
         }
 
-        JsonFileUtil.writeListToJsonWithFastJson(meituanStoreInfoRegisters, "/Users/admin/Downloads/data/meituanStoreInfoRegisters.json");
 
         List<String> errors = new ArrayList<>();
 
@@ -205,7 +193,7 @@ public class UserDataListener extends AnalysisEventListener<MeituanStoreInfo> {
 
 
         // 写入Excel
-        EasyExcel.write("/Users/admin/Downloads/data/error_group_info.xlsx", DeviceInfo.class).sheet("模板").doWrite(deviceInfos);
+        EasyExcel.write("/Users/admin/Downloads/data/error_group_info_1015.xlsx", DeviceInfo.class).sheet("模板").doWrite(deviceInfos);
 
         System.out.println("--------------------end--------------------");
     }

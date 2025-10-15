@@ -98,10 +98,10 @@ public class AsyncHttpProcessor implements AutoCloseable {
     private String processRegister(MeituanStoreInfoRegister ele) throws IOException {
         RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, JSON.toJSONString(ele));
         Request request = new Request.Builder()
-                .url("https://wwww.com.cn/api/v4/place/meituan/robot/register")
+                .url("https://www.com.cn/api/v4/place/meituan/robot/register")
                 .post(body)
                 .addHeader("Content-Type", "application/json")
-                .addHeader("token", "wewewe25f6500cbbc84709960a178389a052c3")
+                .addHeader("token", "e76761aa1914da49729327c46cca0db")
                 .build();
 
         try (Response response = httpClient.newCall(request).execute()) {

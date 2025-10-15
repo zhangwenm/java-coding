@@ -99,14 +99,22 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.2.1</version>
+        </dependency>
         <!-- Druid Connection Pool -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-sms</artifactId>
+            <version>3.1.880</version>
+        </dependency>
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -114,7 +122,11 @@
             <optional>true</optional>
             <version>1.18.20</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
         <!-- FastJSON2 -->
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
@@ -147,32 +159,52 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+
+            <version>20230227</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>2.0.9</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>fastjson2</artifactId>
+                    <groupId>com.alibaba.fastjson2</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                    <!-- 解决JDK 17模块访问问题 -->
-                    <jvmArguments>
-                        <jvmArgument>--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</jvmArgument>
-                        <jvmArgument>--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</jvmArgument>
-                        <jvmArgument>--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</jvmArgument>
-                        <jvmArgument>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArgument>
-                        <jvmArgument>--add-opens=java.base/java.util=ALL-UNNAMED</jvmArgument>
-                        <jvmArgument>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</jvmArgument>
-                    </jvmArguments>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <version>${spring-boot.version}</version>-->
+<!--                <configuration>-->
+<!--                    <excludes>-->
+<!--                        <exclude>-->
+<!--                            <groupId>org.projectlombok</groupId>-->
+<!--                            <artifactId>lombok</artifactId>-->
+<!--                        </exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
