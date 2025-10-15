@@ -20,8 +20,10 @@ public class MeituanStoreInfo {
     private String chassisId;
     @ExcelProperty("hdos_store_id")
     private String storeId;
-    @ExcelProperty("jingwei")
-    private String coordinates;
+    @ExcelProperty("latitude")
+    private String latitude;
+    @ExcelProperty("longitude")
+    private String longitude;
     @ExcelProperty("province_name")
     private String province;
     @ExcelProperty("city_name")

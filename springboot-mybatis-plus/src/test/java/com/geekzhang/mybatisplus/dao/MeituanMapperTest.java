@@ -1,17 +1,18 @@
 package com.geekzhang.mybatisplus.dao;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 
 import com.geekzhang.mybatisplus.entity.MeituanXiaodaiInfo;
 import com.geekzhang.mybatisplus.mapper.MeituanXiaodaiInfoMapper;
+import com.geekzhang.mybatisplus.service.HttpExampleService;
 import com.geekzhang.mybatisplus.vo.MeituanStoreInfoRegister;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class MeituanMapperTest {
 
 	@Autowired
 	private MeituanXiaodaiInfoMapper meituanXiaodaiInfoMapper;
-
+	@Autowired
+	private HttpExampleService httpExampleService;
 
 
 	@Test
@@ -47,6 +49,12 @@ public class MeituanMapperTest {
 				productIds2.add(productId);
 			}
 		});
-	log.info("productIds2:{}",productIds2);
+	log.info("productIds2:{}", com.alibaba.fastjson.JSON.toJSONString(productIds2, SerializerFeature.UseSingleQuotes));
 	}
+
+	@Test
+	public void testWechat() throws Exception {
+		httpExampleService.decodeOpenidSimple("0b3WEU0w3nltI53h8C3w3HB1J62WEU0J");
+	}
+
 }

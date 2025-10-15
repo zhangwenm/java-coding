@@ -4,26 +4,14 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.geekzhang.worktest.workutil.dto.AllDataStatisticsResponse;
-import com.geekzhang.worktest.workutil.dto.Brand;
 import com.geekzhang.worktest.workutil.dto.Device;
-import com.geekzhang.worktest.workutil.dto.HdosStore;
-import com.geekzhang.worktest.workutil.dto.Province;
-import com.geekzhang.worktest.workutil.dto.StoreInfo;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.apache.commons.io.LineIterator;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 
 /**
@@ -32,7 +20,7 @@ import java.util.stream.Collectors;
  * @date 2023年09月04日 11:12
  */
 @Slf4j
-public class ExportDevice {
+public class ExportJSON {
     public static void main(String[] args) throws IOException {
 
 //        System.out.println( 9/10 +"%");

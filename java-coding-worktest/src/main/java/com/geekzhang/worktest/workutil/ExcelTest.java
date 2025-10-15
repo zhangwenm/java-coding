@@ -16,7 +16,7 @@ import com.geekzhang.worktest.workutil.dto.PlaceInfo;
 public class ExcelTest {
 
     public static void main(String[] args) {
-        String path = "/Users/admin/Downloads/data/no_group.xlsx"; // 替换成你的包名
+        String path = "/Users/admin/Downloads/data/tenet.xlsx"; // 替换成你的包名
 //        InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("excel/4.xlsx");
         EasyExcel.read(path, MeituanStoreInfo.class, new UserDataListener()).sheet().doRead();
     }
