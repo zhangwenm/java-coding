@@ -11,7 +11,7 @@ import com.geekzhang.worktest.workutil.dto.MeituanStoreInfo;
 public class ExcelReadDataTest {
 
     public static void main(String[] args) {
-        String path = "/Users/admin/Downloads/data/jinjinga-nvwad.xlsx"; // 替换成你的包名
+        String path = "/Users/admin/Downloads/data/zhouji.xlsx"; // 替换成你的包名
         EasyExcel.read(path, MeituanStoreInfo.class, new MeiTuanDataListener()).sheet().doRead();
     }
 }

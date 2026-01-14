@@ -8,6 +8,7 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geekzhang.worktest.workutil.dto.DeviceInfo;
 import com.geekzhang.worktest.workutil.dto.HdosStore;
@@ -55,9 +56,35 @@ public class MeiTuanDataListener extends AnalysisEventListener<MeituanStoreInfo>
 
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
-        doRegister(context);
+        doZhouji(context);
 
     }
+
+    public void doReadStoreInfo(AnalysisContext context) {
+
+        List<String> storeIdList = oldMethodDtos.stream()
+                .map(ele -> ele.getStoreId().trim())
+                .distinct()  // 添加去重
+                .collect(Collectors.toList());
+        log.info("size:"+storeIdList.size());
+        log.info("storeIdList:{}", com.alibaba.fastjson.JSON.toJSONString(storeIdList, SerializerFeature.UseSingleQuotes));
+    }
+
+    public void doZhouji(AnalysisContext context) {
+
+        List<String> storeIdList = oldMethodDtos.stream().filter(ele -> StringUtils.isNotBlank(ele.getStoreId()))
+                .map(ele -> ele.getStoreId().trim())
+                .distinct()  // 添加去重
+                .collect(Collectors.toList());
+        log.info("size:"+storeIdList.size());
+        log.info("storeIdList:{}", com.alibaba.fastjson.JSON.toJSONString(storeIdList, SerializerFeature.UseSingleQuotes));
+
+//        oldMethodDtos.forEach(ele->{
+//            log.info("insert into t_group_place ( `group_id`, `place_id`, `status`, `create_time`, `update_time`) VALUES ( 10456, {}, 0, '2025-10-12 13:13:33', '2025-10-12 13:13:33')", com.alibaba.fastjson.JSON.toJSONString(ele.getPlaceId(), SerializerFeature.UseSingleQuotes));
+//        });
+
+    }
+
     public void doAnalyse(AnalysisContext context) {
 
         List<String> storeIdList = oldMethodDtos.stream()
