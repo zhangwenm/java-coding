@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -28,6 +29,12 @@ public class HttpExampleService {
 
     @Autowired
     private HttpClientUtil httpClientUtil;
+
+    @Value("${wechat.appid:}")
+    private String wechatAppId;
+
+    @Value("${wechat.secret:}")
+    private String wechatSecret;
     /**
      * 使用HttpClientUtil实现的微信小程序登录 - 简化版本
      *
@@ -35,8 +42,8 @@ public class HttpExampleService {
      * @return Response结果
      */
     public Response decodeOpenidSimple(String code) {
-        String appId = "wxf1c1ab450733c7ea";
-        String secret = "190e861430df34673d29afc169de736c";
+        String appId = wechatAppId;
+        String secret = wechatSecret;
 
         try {
             // 构建GET请求URL参数

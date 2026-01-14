@@ -49,7 +49,7 @@ public class MonitorUrlUtil {
                         case 22:
                         case 24:
                         case 25:
-                            vpnUrl = String.format("http://ncus%d-%d-%d.monitor%s.yunjikj.cn", num0 + 314, num1 * 313 + 133, num2 * 593 + 3243289, "-t");
+                            vpnUrl = String.format("http://ncus%d-%d-%d.monitor%s.cn", num0 + 314, num1 * 313 + 133, num2 * 593 + 3243289, "-t");
                         case 19:
                         case 23:
                     }
