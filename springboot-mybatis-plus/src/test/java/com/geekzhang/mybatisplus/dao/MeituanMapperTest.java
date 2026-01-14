@@ -54,7 +54,7 @@ public class MeituanMapperTest {
 
 	@Test
 	public void testWechat() throws Exception {
-		httpExampleService.decodeOpenidSimple("0b3WEU0w3nltI53h8C3w3HB1J62WEU0J");
+		httpExampleService.decodeOpenidSimple("");
 	}
 
 }
