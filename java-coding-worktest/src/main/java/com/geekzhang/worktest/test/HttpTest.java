@@ -158,7 +158,7 @@ public class HttpTest {
         HttpURLConnection conn = null;
         InputStream is = null;
         try {
-            URL url = new URL("http://sim-pro.monitor.yunjichina.com.cn:19000/factory/get_hardware_info_by_ip?ip=172.22.50.70");
+            URL url = new URL("http://sim-pro.monitor.com.cn:19000/factory/get_hardware_info_by_ip?ip=172.22.50.70");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             //把上一步获取的cookie携带上去

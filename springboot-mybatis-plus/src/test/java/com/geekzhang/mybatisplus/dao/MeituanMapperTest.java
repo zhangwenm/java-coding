@@ -1,6 +1,6 @@
 package com.geekzhang.mybatisplus.dao;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;

@@ -16,7 +16,7 @@ public class JSONUtil {
         testPath();
     }
     public static void testConsumer(){
-String json="{\"class\":\"ai.yunji.rw.data.msg.consumer.impl.IndexRobotMsgConsumer\",\"paramClass\":\"ai.yunji.rw.data.msg.consumer.impl.IndexRobotMsgConsumer$Param\",\"apppattern\":\"device.info.phone/doc\",\"indexer\":\"indexer\",\"scheduled\":true,\"time\":4};{\"class\":\"ai.yunji.rw.data.msg.consumer.impl.KafkaPushPhoneMsgConsumer\",\"paramClass\": \"ai.yunji.rw.data.msg.consumer.impl.KafkaPushPhoneMsgConsumer$Param\",\"topic\":\"robot_heartbeat\"}";
+String json="{\"class\":\"ai.rw.data.msg.consumer.impl.IndexRobotMsgConsumer\",\"paramClass\":\"ai.rw.data.msg.consumer.impl.IndexRobotMsgConsumer$Param\",\"apppattern\":\"device.info.phone/doc\",\"indexer\":\"indexer\",\"scheduled\":true,\"time\":4};{\"class\":\"ainji.rw.data.msg.consumer.impl.KafkaPushPhoneMsgConsumer\",\"paramClass\": \"ai.yunji.rw.data.msg.consumer.impl.KafkaPushPhoneMsgConsumer$Param\",\"topic\":\"robot_heartbeat\"}";
         String[] consumerConfigs = StringUtils.split(json, ";");
         JSONObject jsondata = JSON.parseObject(consumerConfigs[1]);
         System.out.printf("jsondata:%s",jsondata);
