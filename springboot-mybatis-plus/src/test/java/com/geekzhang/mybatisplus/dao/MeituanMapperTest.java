@@ -36,7 +36,7 @@ public class MeituanMapperTest {
 		List<MeituanXiaodaiInfo> meituanXiaodaiInfoList = meituanXiaodaiInfoMapper.selectList(new LambdaUpdateWrapper<>());
 
 		Map<String, String> map = meituanXiaodaiInfoList.stream().map(MeituanXiaodaiInfo::getProductId).collect(Collectors.toMap(k -> k, v -> v));
-		InputStream resourceAsStream2 = Thread.currentThread().getContextClassLoader().getResourceAsStream("meituanStoreInfoRegisters.json");
+		InputStream resourceAsStream2 = Thread.currentThread().getContextClassLoader().getResourceAsStream("meituanStoreInfoRegisters1.json");
 		JSONArray info = JSON.parseObject(resourceAsStream2 , JSONArray.class);
 
 
