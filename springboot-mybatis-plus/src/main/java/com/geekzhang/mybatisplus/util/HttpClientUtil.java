@@ -89,7 +89,23 @@ public class HttpClientUtil {
             throw e;
         }
     }
+    public <T> ResponseEntity<T> putJson(String url, String requestBody, Map<String, String> headers, Class<T> responseType) {
+        try {
+            HttpHeaders httpHeaders = createHeaders(headers);
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
+            HttpEntity<Object> entity = new HttpEntity<>(requestBody, httpHeaders);
+
+            log.info("发送PUT JSON请求: {}", url);
+            ResponseEntity<T> response = pooledRestTemplate.exchange(url, HttpMethod.PUT, entity, responseType);
+            log.info("PUT请求响应状态: {}", response.getStatusCode());
+
+            return response;
+        } catch (RestClientException e) {
+            log.error("PUT JSON请求失败: {}", e.getMessage());
+            throw e;
+        }
+    }
     /**
      * POST请求发送表单数据
      */

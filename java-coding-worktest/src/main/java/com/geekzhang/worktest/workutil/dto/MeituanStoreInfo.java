@@ -14,12 +14,12 @@ import java.util.UUID;
 @Data
 public class MeituanStoreInfo {
 
+    @ExcelProperty("storeId")
+    private String storeId;
     @ExcelProperty("product_id")
     private String robotId;
     @ExcelProperty("chassis_id")
     private String chassisId;
-    @ExcelProperty("hdos_store_id")
-    private String storeId;
     @ExcelProperty("latitude")
     private String latitude;
     @ExcelProperty("longitude")

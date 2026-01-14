@@ -1,5 +1,7 @@
 package com.geekzhang.mybatisplus.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.geekzhang.mybatisplus.entity.User;
@@ -9,9 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户控制器
@@ -19,6 +23,7 @@ import java.util.List;
  * @author geekzhang
  * @since 2025-09-24
  */
+@Slf4j
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping("/api/user")
@@ -26,13 +31,19 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    @ApiOperation("测试post")
+    @PostMapping("/test")
+    public Map test(@RequestBody JSONObject json) {
 
+        log.info("json:{}", JSON.toJSONString(json));
+        return new JSONObject();
+    }
     @ApiOperation("分页查询用户")
     @GetMapping("/page")
     public Page<User> page(
-            @ApiParam("页码") @RequestParam(defaultValue = "1") Long current,
+            @ApiParam("页码") @RequestParam() Long current,
             @ApiParam("每页大小") @RequestParam(defaultValue = "10") Long size,
-            @ApiParam("用户名") @RequestParam(required = false) String username,
+            @ApiParam("用户名") @RequestParam  String username,
             @ApiParam("邮箱") @RequestParam(required = false) String email,
             @ApiParam("手机号") @RequestParam(required = false) String phone,
             @ApiParam("状态") @RequestParam(required = false) Integer status) {
