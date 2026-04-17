@@ -16,6 +16,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-@TableName("t_meituan_xiaodai_info")
+@TableName("t_robot_info_push_new")
 public class MeituanXiaodaiInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,75 +39,82 @@ public class MeituanXiaodaiInfo implements Serializable {
     private Long id;
 
     /**
-     * 场所ID
-     */
-    @TableField("place_id")
-    private String placeId;
-
-    /**
-     * 类型
-     */
-    @TableField("type")
-    private String type;
-
-    /**
      * 产品ID
      */
-    @TableField("product_id")
     private String productId;
 
     /**
-     * 设备ID
+     * 集团ID
      */
-    @TableField("device_id")
-    private String deviceId;
+    private String groupId;
 
     /**
-     * 关键词
+     * 门店ID
      */
-    @TableField("keywords")
-    private String keywords;
+    private String storeId;
 
     /**
-     * 纬度
+     * 酒店名称
      */
-    @TableField("lat")
-    private Double lat;
+    private String hotelName;
 
     /**
-     * 经度
+     * 用户ID
      */
-    @TableField("lng")
-    private Double lng;
+    private String userId;
 
     /**
-     * 状态：1-有效，0-失效
+     * 负责人
      */
-    @TableField("status")
-    private Integer status;
+    private String manager;
+
+    /**
+     * 负责人手机号
+     */
+    private String managerPhone;
+
+    /**
+     * 消息内容
+     */
+    private String msg;
+    private String mobile;
+
+    /**
+     * 金额
+     */
+    private BigDecimal amount;
+
+    /**
+     * 数量
+     */
+    private Integer count;
+
+    /**
+     * 状态：0初始 1同意 2不同意
+     */
+    private Integer state;
+
+    /**
+     * 在线状态：0离线 1在线
+     */
+    private Integer online;
+    private Integer yuncang;
 
     /**
      * 创建时间
      */
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     /**
-     * 创建人
+     * 最新任务开始时间
      */
-    @TableField("create_user")
-    private String createUser;
-
-    /**
-     * 更新人
-     */
-    @TableField("update_user")
-    private String updateUser;
+    private LocalDateTime lastTaskTime;
 }
 

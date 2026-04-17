@@ -15,9 +15,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://proxy:13306/rw_scene?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-    username: ${DB_USERNAME:root}
-    password: VSDLKVJSD#KLdVJS2DLKVJDVWEOIO%PQVXPBVNR
+    url: jdbc:mysql://proxy-test.yunjichina.com.cn:13306/rw_scene?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    username: root
+    password: 'VSDLKVJSD#KLdVJS2DLKVSJDKLVSJDVWEOIO%PQVXPBVNR'
     
     # Druid连接池配置
     druid:
@@ -128,9 +128,17 @@ logging:
   file:
     name: logs/springboot-mybatis-plus.log
 
-# Swagger配置
-springfox:
-  documentation:
-    swagger-ui:
-      enabled: true
+# 微信小程序配置
+wechat:
+  appid: ${WECHAT_APPID:}
+  secret: ${WECHAT_SECRET:}
+
+# SpringDoc OpenAPI配置 (替代Springfox，支持Spring Boot 3.x)
+springdoc:
+  api-docs:
     enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  packages-to-scan: com.geekzhang.mybatisplus.controller

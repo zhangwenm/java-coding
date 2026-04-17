@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.geekzhang.mybatisplus.entity.User;
 import com.geekzhang.mybatisplus.mapper.UserMapper;
 import com.geekzhang.mybatisplus.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -24,29 +24,29 @@ import java.util.Map;
  * @since 2025-09-24
  */
 @Slf4j
-@Api(tags = "用户管理")
+@Tag(name = "用户管理")
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    @ApiOperation("测试post")
+    @Operation(summary = "测试post")
     @PostMapping("/test")
     public Map test(@RequestBody JSONObject json) {
 
         log.info("json:{}", JSON.toJSONString(json));
         return new JSONObject();
     }
-    @ApiOperation("分页查询用户")
+    @Operation(summary = "分页查询用户")
     @GetMapping("/page")
     public Page<User> page(
-            @ApiParam("页码") @RequestParam() Long current,
-            @ApiParam("每页大小") @RequestParam(defaultValue = "10") Long size,
-            @ApiParam("用户名") @RequestParam  String username,
-            @ApiParam("邮箱") @RequestParam(required = false) String email,
-            @ApiParam("手机号") @RequestParam(required = false) String phone,
-            @ApiParam("状态") @RequestParam(required = false) Integer status) {
+            @Parameter(description = "页码") @RequestParam() Long current,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Long size,
+            @Parameter(description = "用户名") @RequestParam  String username,
+            @Parameter(description = "邮箱") @RequestParam(required = false) String email,
+            @Parameter(description = "手机号") @RequestParam(required = false) String phone,
+            @Parameter(description = "状态") @RequestParam(required = false) Integer status) {
         
         Page<User> page = new Page<>(current, size);
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
@@ -68,94 +68,94 @@ public class UserController {
         return userService.page(page, queryWrapper);
     }
 
-    @ApiOperation("根据ID查询用户")
+    @Operation(summary = "根据ID查询用户")
     @GetMapping("/{id}")
-    public User getById(@ApiParam("用户ID") @PathVariable Long id) {
+    public User getById(@Parameter(description = "用户ID") @PathVariable Long id) {
         return userService.getById(id);
     }
 
-    @ApiOperation("根据用户名查询用户")
+    @Operation(summary = "根据用户名查询用户")
     @GetMapping("/username/{username}")
-    public User getByUsername(@ApiParam("用户名") @PathVariable String username) {
+    public User getByUsername(@Parameter(description = "用户名") @PathVariable String username) {
         return userService.getByUsername(username);
     }
 
-    @ApiOperation("根据邮箱查询用户")
+    @Operation(summary = "根据邮箱查询用户")
     @GetMapping("/email/{email}")
-    public User getByEmail(@ApiParam("邮箱") @PathVariable String email) {
+    public User getByEmail(@Parameter(description = "邮箱") @PathVariable String email) {
         return userService.getByEmail(email);
     }
 
-    @ApiOperation("根据手机号查询用户")
+    @Operation(summary = "根据手机号查询用户")
     @GetMapping("/phone/{phone}")
-    public User getByPhone(@ApiParam("手机号") @PathVariable String phone) {
+    public User getByPhone(@Parameter(description = "手机号") @PathVariable String phone) {
         return userService.getByPhone(phone);
     }
 
-    @ApiOperation("查询启用状态的用户")
+    @Operation(summary = "查询启用状态的用户")
     @GetMapping("/active")
     public List<User> getActiveUsers() {
         return userService.getActiveUsers();
     }
 
-    @ApiOperation("根据昵称搜索用户")
+    @Operation(summary = "根据昵称搜索用户")
     @GetMapping("/search")
-    public List<User> searchByNickname(@ApiParam("昵称关键词") @RequestParam String nickname) {
+    public List<User> searchByNickname(@Parameter(description = "昵称关键词") @RequestParam String nickname) {
         return userService.searchByNickname(nickname);
     }
 
-    @ApiOperation("获取用户状态统计")
+    @Operation(summary = "获取用户状态统计")
     @GetMapping("/statistics/status")
     public List<UserMapper.UserStatusStatistics> getUserStatusStatistics() {
         return userService.getUserStatusStatistics();
     }
 
-    @ApiOperation("新增用户")
+    @Operation(summary = "新增用户")
     @PostMapping
     public boolean save(@RequestBody User user) {
         return userService.save(user);
     }
 
-    @ApiOperation("更新用户")
+    @Operation(summary = "更新用户")
     @PutMapping
     public boolean update(@RequestBody User user) {
         return userService.updateById(user);
     }
 
-    @ApiOperation("删除用户")
+    @Operation(summary = "删除用户")
     @DeleteMapping("/{id}")
-    public boolean delete(@ApiParam("用户ID") @PathVariable Long id) {
+    public boolean delete(@Parameter(description = "用户ID") @PathVariable Long id) {
         return userService.removeById(id);
     }
 
-    @ApiOperation("批量更新用户状态")
+    @Operation(summary = "批量更新用户状态")
     @PutMapping("/batch/status")
     public int batchUpdateStatus(@RequestBody List<Long> ids, @RequestParam Integer status) {
         return userService.batchUpdateStatus(ids, status);
     }
 
-    @ApiOperation("检查用户名是否存在")
+    @Operation(summary = "检查用户名是否存在")
     @GetMapping("/exists/username/{username}")
-    public boolean existsByUsername(@ApiParam("用户名") @PathVariable String username) {
+    public boolean existsByUsername(@Parameter(description = "用户名") @PathVariable String username) {
         return userService.existsByUsername(username);
     }
 
-    @ApiOperation("检查邮箱是否存在")
+    @Operation(summary = "检查邮箱是否存在")
     @GetMapping("/exists/email/{email}")
-    public boolean existsByEmail(@ApiParam("邮箱") @PathVariable String email) {
+    public boolean existsByEmail(@Parameter(description = "邮箱") @PathVariable String email) {
         return userService.existsByEmail(email);
     }
 
-    @ApiOperation("检查手机号是否存在")
+    @Operation(summary = "检查手机号是否存在")
     @GetMapping("/exists/phone/{phone}")
-    public boolean existsByPhone(@ApiParam("手机号") @PathVariable String phone) {
+    public boolean existsByPhone(@Parameter(description = "手机号") @PathVariable String phone) {
         return userService.existsByPhone(phone);
     }
 
-    @ApiOperation("重置用户密码")
+    @Operation(summary = "重置用户密码")
     @PutMapping("/{id}/password")
-    public boolean resetPassword(@ApiParam("用户ID") @PathVariable Long id, 
-                               @ApiParam("新密码") @RequestParam String newPassword) {
+    public boolean resetPassword(@Parameter(description = "用户ID") @PathVariable Long id, 
+                               @Parameter(description = "新密码") @RequestParam String newPassword) {
         return userService.resetPassword(id, newPassword);
     }
 }

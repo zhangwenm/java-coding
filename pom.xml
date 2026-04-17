@@ -38,7 +38,7 @@
         <spring-boot.version>3.2.0</spring-boot.version>
 
         <!-- 数据库相关 -->
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <mysql.version>8.0.33</mysql.version>
         <druid.version>1.2.20</druid.version>
 
@@ -76,7 +76,8 @@
 
         <!-- 其他 -->
         <digest-util.version>1.1.1</digest-util.version>
-        <swagger.version>3.0.0</swagger.version>
+        <!-- Springfox已停止维护，不支持Spring Boot 3.x，改用SpringDoc -->
+        <springdoc.version>2.3.0</springdoc.version>
     </properties>
 
     <!-- ==================== 依赖版本管理 ==================== -->
@@ -128,6 +129,12 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- Spring Boot 3.x 专用 starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
@@ -221,11 +228,11 @@
                 <version>${camunda.version}</version>
             </dependency>
 
-            <!-- ===== Swagger ===== -->
+            <!-- ===== API文档 - SpringDoc OpenAPI (替代Springfox，支持Spring Boot 3.x) ===== -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
