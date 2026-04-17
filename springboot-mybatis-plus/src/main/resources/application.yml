@@ -15,9 +15,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://proxy-test.yunjichina.com.cn:13306/rw_scene?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/rw_scene?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
     username: root
-    password: 'VSDLKVJSD#KLdVJS2DLKVSJDKLVSJDVWEOIO%PQVXPBVNR'
+    password: 'your_password_here'
     
     # Druid连接池配置
     druid:
