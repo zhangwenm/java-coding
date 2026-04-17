@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenCode 快捷键说明</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      max-width: 1600px;
+      margin: 15px auto;
+      padding: 15px;
+      background: #f5f5f5;
+    }
+
+    h1, h2, h3 {
+      color: #333;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      text-align: center;
+      border-bottom: 3px solid #007acc;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      border-left: 5px solid #007acc;
+      padding-left: 15px;
+      background: white;
+      padding: 10px 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    table:nth-child(2) {
+      width: 48%;
+      display: inline-table;
+      vertical-align: top;
+    }
+
+    table:nth-child(2) + table {
+      width: 48%;
+      margin-left: 2%;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+      vertical-align: top;
+    }
+
+    th {
+      background: #007acc;
+      color: white;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tr:hover {
+      background: #e8f4ff;
+    }
+
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 0.9em;
+      color: #c7254e;
+    }
+
+    ul {
+      background: white;
+      padding: 20px 40px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    li {
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    /* 打印样式 - 强制横向，一页显示 */
+    @media print {
+      @page {
+        size: landscape;
+        margin: 0.2cm;
+      }
+
+      body {
+        background: white;
+        margin: 0;
+        padding: 3px;
+        font-size: 6pt;
+        line-height: 1.2;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      h1, h2, h3 {
+        color: #000;
+        margin-top: 5px;
+        margin-bottom: 3px;
+        font-size: 9pt;
+      }
+
+      h1 {
+        font-size: 11pt;
+        border-bottom: 2px solid #000;
+        margin-bottom: 5px;
+        padding-bottom: 3px;
+      }
+
+      h2 {
+        border-left: 3px solid #000;
+        background: #f0f0f0 !important;
+        padding: 3px 6px;
+        margin-top: 5px;
+      }
+
+      table {
+        box-shadow: none;
+        page-break-inside: auto;
+        margin-bottom: 8px;
+        font-size: 6pt;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 2px 4px !important;
+        border: 1px solid #ccc;
+        vertical-align: top;
+      }
+
+      th {
+        background: #333 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-size: 7pt;
+        padding: 3px 4px !important;
+      }
+
+      tr:nth-child(even) {
+        background: #f5f5f5 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      ul {
+        box-shadow: none;
+        padding: 3px 15px;
+        margin-bottom: 5px;
+        font-size: 6pt;
+      }
+
+      li {
+        margin-bottom: 2px;
+        display: inline-block;
+      }
+
+      code {
+        border: 1px solid #ccc;
+        font-size: 6pt;
+        padding: 0px 2px;
+        background: #f9f9f9 !important;
+      }
+
+      p {
+        margin: 2px 0;
+      }
+
+      input[type="checkbox"] {
+        width: 8px;
+        height: 8px;
+      }
+
+      /* 防止分页 */
+      body {
+        page-break-inside: avoid;
+      }
+      h1, h2, h3, table, ul, p {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>OpenCode 快捷键说明</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>快捷键</th>
+        <th>功能</th>
+        <th>快捷键</th>
+        <th>功能</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Enter</code></td>
+        <td>发送消息/到达底部</td>
+        <td><code>Shift</code>+<code>Enter</code></td>
+        <td><strong>不发送</strong>/多行输入</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>C</code></td>
+        <td>清空输入/退出</td>
+        <td><code>Escape</code></td>
+        <td>中断 AI 响应</td>
+      </tr>
+      <tr>
+        <td><code>↑</code>/<code>↓</code></td>
+        <td>查看历史(空输入框)</td>
+        <td><code>Tab</code></td>
+        <td>切换 Agent</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>X</code>→<code>N</code></td>
+        <td>新建会话</td>
+        <td><code>Ctrl</code>+<code>X</code>→<code>L</code></td>
+        <td>会话列表</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>X</code>→<code>M</code></td>
+        <td>模型标签</td>
+        <td><code>F2</code></td>
+        <td>快速切换模型</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>X</code>→<code>U</code></td>
+        <td>撤销消息</td>
+        <td><code>Ctrl</code>+<code>X</code>→<code>R</code></td>
+        <td>重写消息</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>P</code></td>
+        <td>命令面板</td>
+        <td><code>Ctrl</code>+<code>X</code>→<code>Y</code></td>
+        <td>复制 AI 回复</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>X</code>→<code>C</code></td>
+        <td>折叠上下文</td>
+        <td><code>Ctrl</code>+<code>X</code>→<code>B</code></td>
+        <td>切换侧边栏</td>
+      </tr>
+      <tr>
+        <td><code>PageUp</code>/<code>PageDown</code></td>
+        <td>翻页浏览</td>
+        <td><code>Ctrl</code>+<code>X</code>→<code>T</code></td>
+        <td>主题标签</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>A</code></td>
+        <td>跳到行首</td>
+        <td><code>Ctrl</code>+<code>E</code></td>
+        <td>跳到行尾</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>K</code></td>
+        <td>删除光标到行尾</td>
+        <td><code>Ctrl</code>+<code>U</code></td>
+        <td>删除光标到行首</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>W</code></td>
+        <td>删除上一个单词</td>
+        <td><code>Alt</code>+<code>B</code></td>
+        <td>后退一个单词</td>
+      </tr>
+      <tr>
+        <td><code>Alt</code>+<code>F</code></td>
+        <td>前进一个单词</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>操作说明</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>类型</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ctrl+C 行为</strong></td>
+        <td>输入框有内容时：清空；为空时：退出</td>
+      </tr>
+      <tr>
+        <td><strong>Leader 键</strong></td>
+        <td>按 <code>Ctrl</code>+<code>X</code> 后等待片刻再按键（N=新会话，L=列表，M=模型）</td>
+      </tr>
+      <tr>
+        <td><strong>练习口诀</strong></td>
+        <td>换行发送Shift，上箭翻历史，新建N列表L模型M，撤销U重写R复制Y，Escape中断Tab切换Agent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>常见问题</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>现象</th>
+        <th>解决方法</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Shift</code>+<code>Enter</code> 直接发送</td>
+        <td>终端不发送修改键，可用 <code>Ctrl</code>+<code>J</code> 或配置终端</td>
+      </tr>
+      <tr>
+        <td><code>Ctrl</code>+<code>X</code>→<code>N</code> 无反应</td>
+        <td>需先按 <code>Ctrl</code>+<code>X</code> 等待开启模式，再按 <code>N</code></td>
+      </tr>
+      <tr>
+        <td>上箭无历史记录</td>
+        <td>先清空输入框（<code>Ctrl</code>+<code>C</code>）</td>
+      </tr>
+      <tr>
+        <td><code>Tab</code> 无法切换</td>
+        <td>先按 <code>Escape</code> 退出输入模式</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>✅ 快速检查</h2>
+  <ul style="display: inline-block; margin: 0; padding: 0;">
+    <li style="display: inline-block; margin: 0 10px;"><input type="checkbox"> <code>Shift</code>+<code>Enter</code> 不发送</li>
+    <li style="display: inline-block; margin: 0 10px;"><input type="checkbox"> <code>↑</code> 查看历史</li>
+    <li style="display: inline-block; margin: 0 10px;"><input type="checkbox"> <code>Ctrl</code>+<code>C</code> 清空</li>
+    <li style="display: inline-block; margin: 0 10px;"><input type="checkbox"> <code>Ctrl</code>+<code>X</code>→<code>N</code> 新会话</li>
+    <li style="display: inline-block; margin: 0 10px;"><input type="checkbox"> <code>Ctrl</code>+<code>X</code>→<code>L</code> 列表</li>
+    <li style="display: inline-block; margin: 0 10px;"><input type="checkbox"> <code>Escape</code> 中断</li>
+  </ul>
+
+</body>
+</html>

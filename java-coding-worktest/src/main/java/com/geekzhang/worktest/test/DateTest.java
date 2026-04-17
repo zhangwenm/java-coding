@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 /**
  * @author zwm
@@ -26,7 +27,24 @@ public class DateTest {
         System.out.println("字符串转换locaDateTime==" + dateTime2);
         System.out.println("yyyy-MM-dd HH:mm:ss length==" + date.substring(0,19));
         //计算时间差
-        Duration duration = Duration.between(LocalDateTime.now(),  LocalDateTime.parse(date.substring(0,19),dateTimeFormatter1) );
-        System.out.println("2020-05-20 20:20:20与当前时间差：" + duration.toHours());
+
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+        System.out.println("UUID:"+UUID.randomUUID().toString().replaceAll("-",""));
+
+
+
+
     }
 }
