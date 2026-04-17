@@ -22,7 +22,7 @@ public class TestConfig {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl("jdbc:mysql://proxy-test.yunjichina.com.cn:13306/rw_config?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8");
         dataSource.setUsername("root");
-        dataSource.setPassword("VSDLKVJSD#KLdVJS2DLKVSJDKLVSJDVWEOIO%PQVXPBVNR");
+        dataSource.setPassword("your_password_here");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return dataSource;
     }
