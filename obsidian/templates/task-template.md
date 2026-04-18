@@ -7,6 +7,7 @@ assignee: agent
 created: {{date}}
 updated: {{date}}
 deadline:
+branch:              # cmux worktree 分支名，如 fix-robot-offline
 ---
 
 # {{title}}
@@ -49,7 +50,8 @@ deadline:
 <!-- 每次会话结束前必须更新，作为下次启动的恢复入口 -->
 - 最后更新：{{date}}
 - 当前进展：
-- 下次启动入口：<!-- 从哪个文件/方法/步骤继续 -->
+- 下次启动入口：`cd <项目路径> && cmux start <branch>`
+- 待续位置：<!-- 具体到文件/方法/步骤 -->
 
 ## 阻塞项
 
