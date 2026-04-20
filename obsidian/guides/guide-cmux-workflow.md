@@ -297,12 +297,30 @@ cd ~/appstore/project/manager/rw-backend  # 这里是 main
 
 ---
 
+## Feature 清单（复杂任务专用）
+
+任务涉及多个有顺序依赖的功能点时，在任务文档的 Feature 清单里跟踪进度：
+
+| ID | Feature | 验收标准 | Status | Commit |
+|----|---------|---------|--------|--------|
+| F001 | 设备注册模块 | POST /api/devices 201 + mvn test 通过 | done | abc123 |
+| F002 | Adapter 接口定义 | AdapterService + 单测覆盖 | in-progress | |
+| F003 | 任务状态机 | ActionTask 状态流转 + Redis 缓存 | pending | |
+
+**Current**: F002
+
+规则：
+- `cmux start` 前先看 **Current** 是哪个，只做这一个
+- 完成后填 Commit，Status 改 done，Current 指向下一个
+- 简单任务（单功能）不需要这个表，用"执行计划"的 checkbox 就够
+
 ## 速查卡片
 
 ```
 新任务   → 告诉 Sisyphus 一句话 → 它自动建文档 + 推荐 branch → 你确认 → cmux new
+复杂任务 → 先填 Feature 清单（有顺序依赖时）→ cmux start 前确认 Current
 会话结束 → Sisyphus 自动更新"当前状态快照"（或手动更新，待续位置要具体到行）
-下次开工 → 打开文档 → 复制启动命令 → 贴快照给 Claude
+下次开工 → 打开文档 → 看 Current → 复制启动命令 → 贴快照给 Claude
 阻塞了   → status: blocked → cmux start 其他任务
 完成了   → cmux merge → cmux rm → status: done
 ```

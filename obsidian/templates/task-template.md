@@ -45,6 +45,17 @@ branch:              # cmux worktree 分支名，如 fix-robot-offline
 ### 阶段三：验证
 - [ ]
 
+## Feature 清单
+
+<!-- 复杂任务用此表跟踪进度，cmux start 前先确认 current -->
+<!-- status: pending / in-progress / done -->
+
+| ID | Feature | 验收标准 | Status | Commit |
+|----|---------|---------|--------|--------|
+| F001 | | | pending | |
+
+**Current**: F001
+
 ## 当前状态快照
 
 <!-- 每次会话结束前必须更新，作为下次启动的恢复入口 -->
