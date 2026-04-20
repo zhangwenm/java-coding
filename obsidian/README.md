@@ -53,7 +53,9 @@ obsidian/
 |------|------|------|
 | [[guides/guide-cmux-workflow]] | cmux + Obsidian | 长线任务完整工作流（含 Sisyphus 自动化） |
 | [[guides/guide-cc-long-task]] | Claude Code | 长线任务操作指南 |
-| [[inbox/cc-oc-快捷启动]] | cc / oc | 快捷启动命令速查 |
+| [[guides/guide-cc-oc-shortcuts]] | cc / oc | 快捷启动命令速查 |
+| [[guides/guide-cc-session-management]] | Claude Code | 会话管理与上下文指南 |
+| [[guides/guide-obsidian-daily-habit]] | Obsidian | 日常记录习惯（Agent 行为指令） |
 
 ## 写作规范
 
