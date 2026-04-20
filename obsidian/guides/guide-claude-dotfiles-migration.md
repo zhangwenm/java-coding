@@ -91,10 +91,50 @@ git clone git@github.com:zhangwenm/java-coding.git ~/appstore/project/java-codin
 
 ## 日常维护
 
-配置有变更时（新增 skill、改 hook、改 rules）：
+配置有变更时（新增 skill、改 hook、改 rules）无需手动操作——每次 Claude Code 会话结束时 `sync-dotfiles.sh` 自动 commit + push。
+
+手动同步：
 ```bash
-cd ~/.claude
-git add -A
-git commit -m "更新配置：<描述>"
-git push
+~/.claude/hooks/sync-dotfiles.sh
+```
+
+---
+
+## 误删恢复
+
+### 查看历史
+
+```bash
+git -C ~/.claude log --oneline
+```
+
+### 恢复单个 skill 或文件
+
+```bash
+# 找到误删前的 commit hash
+git -C ~/.claude log --oneline -- skills/<skill-name>/
+
+# 恢复（不影响其他文件）
+git -C ~/.claude checkout <commit-hash> -- skills/<skill-name>/
+```
+
+### 恢复某个 rules 或 hook
+
+```bash
+git -C ~/.claude checkout <commit-hash> -- rules/java.md
+git -C ~/.claude checkout <commit-hash> -- hooks/compile-java.sh
+```
+
+### 整体回滚（慎用）
+
+```bash
+# 回滚到指定 commit，本地所有变更丢失
+git -C ~/.claude reset --hard <commit-hash>
+git -C ~/.claude push origin main --force
+```
+
+### 只想查看某个历史版本内容（不恢复）
+
+```bash
+git -C ~/.claude show <commit-hash>:skills/<skill-name>/SKILL.md
 ```
