@@ -23,6 +23,7 @@ status: active
 ├── oh-my-openagent.json          ✅ Agent 定义（6 个自定义 Agent）
 ├── AGENTS.md                     ✅ 全局编码规范
 ├── setup-new-machine.sh          ✅ 一键迁移脚本
+├── start.sh                      ✅ 启动脚本（代理端口/路径可覆盖）
 └── .gitignore                    ✅ 排除 node_modules/备份
 
 ~/.agents/skills/                 ← agents-skills 仓库（新建）
@@ -84,7 +85,14 @@ export OBSIDIAN_API_KEY="你的 Obsidian API Key"
 ### 4. 启动
 
 ```bash
+# 方式一：直接启动
 cd ~/appstore/project && opencode
+
+# 方式二：用启动脚本（自动设置代理，端口和路径可覆盖）
+PROXY_PORT=7898 PROJECT_DIR=~/appstore/project bash ~/.config/opencode/start.sh
+
+# 方式三：zshrc 中的 oc 快捷命令（推荐）
+oc
 ```
 
 ## 也可以用一键脚本
@@ -96,17 +104,20 @@ bash <(curl -sL https://raw.githubusercontent.com/zhangwenm/opencode-config/mast
 
 ## 日常维护
 
-### 配置变更后提交
+### 自动同步（无需手动）
+
+每次 Claude Code 会话结束时，`sync-dotfiles.sh` 自动检查并推送以下 3 个仓库的变更：
+
+| 仓库 | 分支 | 自动同步 |
+|------|------|---------|
+| `~/.claude` | main | ✅ |
+| `~/.config/opencode` | master | ✅ |
+| `~/.agents/skills` | master | ✅ |
+
+### 手动同步（需要时）
 
 ```bash
-# OpenCode 配置变更
-cd ~/.config/opencode && git add -A && git commit -m "描述变更" && git push
-
-# Agents Skills 变更
-cd ~/.agents/skills && git add -A && git commit -m "描述变更" && git push
-
-# Claude Skills/Hooks 变更（已有 sync-dotfiles.sh 自动同步）
-~/.claude/hooks/sync-dotfiles.sh
+bash ~/.claude/hooks/sync-dotfiles.sh
 ```
 
 ### 误删恢复
@@ -128,3 +139,5 @@ git -C ~/.config/opencode show <commit-hash>:opencode.json
 - `{env:VAR}` 语法要求 `"$schema": "https://opencode.ai/config.json"` 必须保留，否则 OpenCode 启动时会用实际值覆盖变量引用（已在 v2026.1.18 修复）
 - gstack 系列 skills（`~/.claude/skills/gstack*/`）是外部克隆的 git repo，`~/.claude/.gitignore` 已排除，换机器后需重新安装 gstack
 - 项目级配置（`.claude/skills/`、`AGENTS.md`、`.mcp.json`）随项目代码 Git 一起走，无需额外操作
+- `start.sh` 中的代理端口通过 `PROXY_PORT` 环境变量覆盖（默认 7898），项目路径通过 `PROJECT_DIR` 覆盖
+- `sync-dotfiles.sh` 已扩展为同时同步 3 个配置仓库，会话结束时自动执行
