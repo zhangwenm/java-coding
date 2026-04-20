@@ -40,7 +40,7 @@ CC 能完成工作流中的所有操作，差别只在**触发方式**：
 
 CC 会自动：
 1. 定位相关代码（Grep/Read）
-2. 在 `obsidian/tasks/` 生成任务文档（按 task-template 格式）
+2. 在 `tasks/` 生成任务文档（按 task-template 格式）
 3. 推荐 branch 名
 4. 等你确认后执行 `cmux new`
 
@@ -147,7 +147,7 @@ CC 会：
       "matcher": "",
       "hooks": [{
         "type": "command",
-        "command": "/bin/bash -c 'branch=$(git -C \"$(pwd)\" rev-parse --abbrev-ref HEAD 2>/dev/null); [[ \"$branch\" != \"main\" && \"$branch\" != \"master\" && -n \"$branch\" ]] && echo \"[提醒] 当前在 worktree 分支 $branch，记得更新 obsidian/tasks/$branch.md 的状态快照\"'"
+        "command": "/bin/bash -c 'branch=$(git -C \"$(pwd)\" rev-parse --abbrev-ref HEAD 2>/dev/null); [[ \"$branch\" != \"main\" && \"$branch\" != \"master\" && -n \"$branch\" ]] && echo \"[提醒] 当前在 worktree 分支 $branch，记得更新 tasks/$branch.md 的状态快照\"'"
       }]
     }]
   }
