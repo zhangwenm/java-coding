@@ -55,5 +55,5 @@ https://github.com/nashsu/llm_wiki/releases/download/v0.3.3/LLM.Wiki_0.3.3_aarch
 ## 局限
 
 - 无法感知现有笔记的上下文，不会自动补充已有条目
-- 不触发 PostToolUse Hook，[[交叉链接]]需手动检查
+- 不触发 PostToolUse Hook，`[[交叉链接]]`需手动检查
 - 笔记质量受 system prompt 约束，不如 CC 对话式精准
