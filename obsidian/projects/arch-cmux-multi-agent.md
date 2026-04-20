@@ -98,7 +98,7 @@ ln -sf "$REPO_ROOT/.env" .env
 **推荐工作流**：
 
 ```
-1. 在 obsidian/tasks/ 新建任务文档（用 task-template）
+1. 在 tasks/ 新建任务文档（用 task-template）
 2. cmux new <branch> -p "任务目标"  → Claude 开始执行
 3. 会话结束前更新任务模板"当前状态快照"
 4. 下次：cmux start <branch> 恢复

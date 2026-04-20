@@ -58,34 +58,31 @@ echo '.worktrees/' >> ~/appstore/project/manager/rw-backend/.gitignore
 
 ### 第一阶段：任务启动
 
-**Step 1：在 obsidian/tasks/ 新建任务文档**
+**Step 1：告诉 Sisyphus 要做什么（一句话就行）**
 
-用 task-template 新建，立刻填好三个核心字段：
-
-```markdown
----
-branch: fix-robot-offline        ← 分支命名规范见下方
-status: in-progress
----
-
-## 目标
-修复机器人短暂断网恢复后仍触发离线告警的问题
-
-## 背景
-生产反馈：NVWA 机器人网络抖动后告警误报，影响运营判断
-
-## 范围
-### 包含
-- SceneService 中的离线判断逻辑
-- 对应单元测试
-
-### 不包含
-- 前端告警展示（不在此次范围）
+```
+修复机器人离线告警误报，SceneService 里的离线判断逻辑有问题
 ```
 
-**Step 2：创建 cmux worktree**
+Sisyphus 自动完成：
+1. 探索相关代码，定位关键文件和方法
+2. 在 `tasks/` 下生成任务文档（按 task-template 格式）
+3. 填好目标、背景、范围、里程碑、执行计划、涉及文件
+4. 推荐 branch 名（遵循命名规范）
+
+**你只需要确认文档内容，不用手动建文件。**
+
+> **命名规范**
+> - `fix-` 前缀：bug 修复
+> - `feature-` 前缀：新功能
+> - `refactor-` 前缀：重构
+> - `chore-` 前缀：配置/依赖等杂项
+> - 全部小写，用 `-` 连接，简短有意义
+
+**Step 2：确认后，Sisyphus 创建 cmux worktree**
 
 ```bash
+source ~/.cmux/cmux.sh
 cd ~/appstore/project/manager/rw-backend
 
 cmux new fix-robot-offline -p "
@@ -96,6 +93,8 @@ cmux new fix-robot-offline -p "
 参考：ai.yunji.rw.scene 包下的现有实现
 "
 ```
+
+> **注意**：cmux 是 shell function，每次新终端需要 `source ~/.cmux/cmux.sh`
 
 > **命名规范**
 > - `fix-` 前缀：bug 修复
@@ -108,9 +107,9 @@ cmux new fix-robot-offline -p "
 
 ### 第二阶段：执行中
 
-**每次 Claude 会话结束前，必须更新任务文档的"当前状态快照"**
+**每次 Claude 会话结束前，Sisyphus 自动更新任务文档的"当前状态快照"**
 
-这是最重要的习惯，10 秒钟，保证下次能无缝恢复：
+你也可以手动更新，10 秒钟，保证下次能无缝恢复：
 
 ```markdown
 ## 当前状态快照
@@ -192,7 +191,13 @@ cmux merge fix-robot-offline
 cmux rm fix-robot-offline
 ```
 
-**同步更新 Obsidian 文档：**
+**Sisyphus 自动同步 Obsidian 文档：**
+
+合并完成后，Sisyphus 自动更新任务文档，无需手动操作：
+
+- `status` → `done`
+- 填写里程碑实际完成时间
+- 补充备注（改了什么、为什么这么改、需同步的其他仓库）
 
 ```markdown
 ---
@@ -295,9 +300,22 @@ cd ~/appstore/project/manager/rw-backend  # 这里是 main
 ## 速查卡片
 
 ```
-新任务   → obsidian 建文档 → cmux new <branch> -p "任务描述"
-会话结束 → 更新"当前状态快照"（待续位置要具体到行）
+新任务   → 告诉 Sisyphus 一句话 → 它自动建文档 + 推荐 branch → 你确认 → cmux new
+会话结束 → Sisyphus 自动更新"当前状态快照"（或手动更新，待续位置要具体到行）
 下次开工 → 打开文档 → 复制启动命令 → 贴快照给 Claude
 阻塞了   → status: blocked → cmux start 其他任务
 完成了   → cmux merge → cmux rm → status: done
 ```
+
+## 角色分工
+
+| 步骤 | 你 | Sisyphus |
+|------|---|-----------| 
+| 描述任务 | ✅ 说一句话 | - |
+| 探索代码定位 | - | ✅ 自动分析 |
+| 生成任务文档 | - | ✅ 按 template 生成 |
+| 确认文档内容 | ✅ 看一眼确认 | - |
+| 创建 worktree | - | ✅ 执行 cmux new |
+| 执行开发 | - | ✅ 分解+委派子 agent |
+| 更新状态快照 | - | ✅ 每次会话结束自动更新 |
+| 合并+清理 | ✅ 确认后 | ✅ cmux merge + rm |
