@@ -4,11 +4,14 @@ tags:
 status: draft        # draft / in-progress / blocked / done / cancelled
 priority: medium     # high / medium / low
 assignee: agent
-created: {{date}}
-updated: {{date}}
+created: {{date}}    # Obsidian 模板引擎自动填；Claude Code 直接写文件时需手动填日期
+updated: {{date}}    # 同上
 deadline:
-branch:              # cmux worktree 分支名，如 fix-robot-offline
+branch:              # cmux worktree 分支名，如 fix-robot-offline；多仓库并行时填同一个名
 ---
+
+<!-- 本模板适用于 OpenCode 和 Claude Code 两套工作流，差异见各自的 guide -->
+<!-- OpenCode：guide-cmux-workflow | Claude Code：guide-cc-long-task -->
 
 # {{title}}
 
@@ -71,6 +74,9 @@ branch:              # cmux worktree 分支名，如 fix-robot-offline
 | | | | |
 
 ## 关键决策记录
+
+<!-- 记录任务过程中做过的重要技术决策，避免下次被问到时说不清楚为什么这么设计 -->
+<!-- 例如：选用 A 方案而非 B 方案的原因、放弃某个实现路径的原因 -->
 
 | 决策 | 选项 | 结论 | 原因 |
 |---|---|---|---|
