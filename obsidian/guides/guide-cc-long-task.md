@@ -3,13 +3,15 @@ tags:
   - 工具链
   - 工作流
   - Claude-Code
+tool: Claude-Code
 status: done
 created: 2026-04-18
 ---
 
 # Claude Code 长线任务操作指南
 
-> 配套文档：[[cmux-obsidian-工作流指南]]、[[cmux-多Agent并行开发]]
+> **使用者：Claude Code**
+> 配套 OpenCode 版本见 [[guide-cmux-workflow]]
 
 ## 与 Sisyphus 的差异
 
@@ -123,38 +125,27 @@ CC 会：
 
 ## 常用指令速查
 
-| 你说 | CC 做的事 |
-|------|---------|
-| `新任务：xxx` | 探索代码 → 生成文档 → cmux new |
-| `更新任务快照` | 写入当前进展到任务文档 |
-| `查看所有任务` | cmux ls + 列出 tasks/ 下的 in-progress 文档 |
-| `切换到 <branch>` | 保存当前快照 → cmux start <branch> |
-| `merge 并更新文档` | cmux merge + rm + 文档 status: done |
-| `这个任务阻塞了，等 xxx` | 更新文档 status: blocked，记录阻塞项 |
+| 你说              | CC 做的事                                |
+| --------------- | ------------------------------------- |
+| `新任务：xxx`       | 探索代码 → 生成文档 → cmux new                |
+| `更新任务快照`        | 写入当前进展到任务文档                           |
+| `查看所有任务`        | cmux ls + 列出 tasks/ 下的 in-progress 文档 |
+| `切换到 <branch>`  | 保存当前快照 → cmux start <branch>          |
+| `merge 并更新文档`   | cmux merge + rm + 文档 status: done     |
+| `这个任务阻塞了，等 xxx` | 更新文档 status: blocked，记录阻塞项            |
 
 ---
 
-## Stop Hook 配置（可选）
+## Stop Hook 配置（已配置）
 
-配置后，CC 每次会话结束**自动**提醒更新快照，省去手动说那句话。
+**已在 `~/.claude/settings.json` 中配置**，每次会话结束自动提醒更新快照，无需手动说那句话。
 
-`~/.claude/settings.json`：
-
-```json
-{
-  "hooks": {
-    "Stop": [{
-      "matcher": "",
-      "hooks": [{
-        "type": "command",
-        "command": "/bin/bash -c 'branch=$(git -C \"$(pwd)\" rev-parse --abbrev-ref HEAD 2>/dev/null); [[ \"$branch\" != \"main\" && \"$branch\" != \"master\" && -n \"$branch\" ]] && echo \"[提醒] 当前在 worktree 分支 $branch，记得更新 tasks/$branch.md 的状态快照\"'"
-      }]
-    }]
-  }
-}
+效果：在非 main 分支的 worktree 里工作时，会话结束自动打印：
+```
+📝 worktree 分支 <branch> — 记得说"更新任务快照"保存进度
 ```
 
-效果：在非 main 分支的 worktree 里工作时，会话结束自动打印提醒。
+如需查看或修改配置：`~/.claude/settings.json` → Stop hooks 节。
 
 ---
 
