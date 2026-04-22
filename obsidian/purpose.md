@@ -11,7 +11,7 @@ updated: 2026-04-20
 
 ## 这个知识库是谁的
 
-Java 开发工程师 + 架构师，负责多个业务域（manager / yuncang / lot / datacenter / base），
+软件工程师 + 架构师，技术栈以 Java 为主，兼涉 Python、前端等，负责多个业务域（manager / yuncang / lot / datacenter / base），
 使用 Claude Code 作为主要 AI 编程助手，正在建立 AI 驱动的开发工作流。
 
 ---
