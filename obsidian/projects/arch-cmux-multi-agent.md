@@ -3,8 +3,9 @@ tags:
   - 工具链
   - Claude-Code
   - 多Agent
+date: 2026-04-18
+project: 工具链
 status: done
-created: 2026-04-18
 ---
 
 # cmux — Claude Code 多 Agent 并行开发

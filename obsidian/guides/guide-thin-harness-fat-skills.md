@@ -1,24 +1,16 @@
-# 薄缰绳厚技能：AI 编程架构优化实录
+---
+tags: [工具链, 架构思想, Claude-Code, OpenCode]
+date: 2026-04-20
+project: 工具链
+status: done
+source: https://weibo.com/5078115336/QBw11mTId（Garry Tan / YC thin harness fat skills）
+---
 
-> 2026-04-20 | 基于 Garry Tan「thin harness, fat skills」架构思想，分别对 OpenCode 和 Claude Code 配置体系做的改进
+# 薄缰绳厚技能：落地改进实录
 
-## 背景
+**结论**：AI 编程效率差异在架构而非模型。Harness 越薄越好，逻辑越多放进 Skill。我们在 OpenCode 和 Claude Code 两套工具都做了对应改进。
 
-读了一条微博（[@默庵·超级个体](https://weibo.com/5078115336/QBw11mTId)），解读 Y Combinator 掌门人 Garry Tan 的长文。核心观点：
-
-> AI 编程效率差异不在模型，在于架构。10x 和 100x 差距的人用的是同一个模型，差别在于「包裹模型的那层壳」——harness（缰绳）。
-
-五个关键概念：
-
-| 概念 | 含义 |
-|------|------|
-| **Skill** | Markdown 文档，教 AI 怎么做事的流程说明书，像函数一样接受参数 |
-| **Harness** | 运行模型的薄壳，只做循环、读写、上下文管理、安全——越薄越好 |
-| **Resolver** | 上下文路由表，在正确时刻自动加载正确文档 |
-| **潜在空间 vs 确定性空间** | 智能（阅读、判断）归模型，确定性工作（SQL、编译）归传统程序 |
-| **Diarization（档案化）** | 通读所有资料后输出一页结构化判断 |
-
-同时使用 OpenCode 和 Claude Code，分别落地了对应的改进。
+> 理论来源：Garry Tan 长文，五个概念 Skill/Harness/Resolver/潜在空间/Diarization，详见原链接。
 
 ---
 
@@ -63,22 +55,13 @@
 
 ### 改进三：参数化元流程 skill — `cross-project-change`
 
-**文件**：`.claude/skills/cross-project-change/SKILL.md`（OpenCode skills 目录）
-
-同一个七步流程，传入不同参数产生不同能力：
-
-| 参数 | 示例 |
-|------|------|
-| 变更类型 | 接口变更 / DTO 变更 / 配置变更 / 数据库变更 |
-| 变更源头 | `common/webservice` 的 `XxxService.java` |
-| 目标内容 | 新增 `getList(param): List<DTO>` 方法 |
-| 影响项目 | base/scene, manager, yuncang |
+同一个七步流程传入不同参数产生不同能力（接口变更/DTO变更/配置变更/数据库变更）。
+文件：`.claude/skills/cross-project-change/SKILL.md`
 
 ### 改进四：项目档案化 skill — `project-profile`
 
-**文件**：`.claude/skills/project-profile/SKILL.md`（OpenCode skills 目录）
-
-接受参数（目标项目），输出标准化一页画像：技术栈、依赖、健康度、风险点、已知坑位。
+接受目标项目参数，输出标准化一页画像：技术栈、依赖、健康度、风险点、已知坑位。
+文件：`.claude/skills/project-profile/SKILL.md`
 
 ---
 
@@ -86,9 +69,7 @@
 
 ### 改进一：Resolver 路由（inject-session-context.sh）
 
-**文件**：`~/.claude/hooks/inject-session-context.sh`
-
-每条消息都扫描关键词，命中则注入专项提示：
+每条消息扫描关键词，命中则注入专项提示：
 
 | 关键词 | 注入内容 |
 |--------|---------|
@@ -100,21 +81,15 @@
 
 ### 改进二：铁律「不做一次性工作」
 
-**文件**：`~/CLAUDE.md`（工作方式约定章节）
-
-凡是会重复的事，先做 3~10 个样本确认效果，再固化成 skill；用户第二次要同一个东西 = 系统失败。
+文件：`~/CLAUDE.md`（工作方式约定章节）。凡是会重复的事，先做 3~10 个样本确认，再固化成 skill。
 
 ### 改进三：档案化 Skill — `domain-diarization`
 
-**文件**：`~/.claude/skills/domain-diarization/skill.md`
-
-**调用**：`/domain-diarization <domain>`（iot-min / manager / yuncang / lot / datacenter / base / common / hk）
-
-读上下文 + 架构文档 + 踩坑记录 + git log，输出 7 节画像，重点是「说的」vs「做的」差距。
+`/domain-diarization <domain>` 读上下文+架构文档+踩坑+git log，输出 7 节画像，重点是「说的」vs「做的」差距。
 
 ---
 
-## skill 体系关系图（两套工具共用的逻辑）
+## Skill 体系关系图
 
 ```
 domain-diarization / project-profile（域/项目档案化）
@@ -128,11 +103,9 @@ Resolver 路由（AGENTS.md / inject-session-context.sh）
 不做一次性工作铁律（AGENTS.md / CLAUDE.md）
 ```
 
----
-
 ## 后续 TODO
 
 - [ ] 用 `/domain-diarization` 给各业务域建档（iot-min、lot、yuncang 优先）
-- [ ] OpenCode 的 `project-profile` 和 Claude Code 的 `domain-diarization` 输出格式对齐
+- [ ] OpenCode `project-profile` 和 Claude Code `domain-diarization` 输出格式对齐
 - [ ] 审查现有 skill 哪些可以参数化，减少重复
 - [ ] Resolver 关键词根据实际触发情况持续调优
