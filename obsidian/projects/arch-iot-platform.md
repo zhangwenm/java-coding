@@ -4,6 +4,9 @@ tags:
   - iot
   - 设计方案
 date: 2026-04-20
+project: iot-platform
+status: draft
+confidence: 设计阶段未落地，待验证
 ---
 
 # IoT 通用设备接入平台 —— 整体架构设计

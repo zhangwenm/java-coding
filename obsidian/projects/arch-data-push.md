@@ -4,6 +4,8 @@ tags:
   - datacenter
   - data-push
 date: 2026-04-18
+project: datacenter
+status: done
 ---
 
 # data-push 整体架构

@@ -1,3 +1,11 @@
+---
+tags: [工具链, 任务管理, 交接]
+date: 2026-04-20
+project: 工具链
+status: stale
+note: 此文件是某次具体会话的快照，内容已过期；应在 tasks/ 下按分支名建档，见 [[guide-cmux-workflow]]
+---
+
 # Session 交接文档
 
 > 每次开启新 session 时，把这个文件丢给 Claude，快速恢复上下文。
