@@ -1,10 +1,9 @@
 ---
-tags:
-  - 工具链
-  - 工作流
-  - OpenCode
-tool: OpenCode
+tags: [工具链, cmux, worktree]
+date: 2026-04-18
+project: 工具链
 status: done
+retrieval_triggers: [cmux, worktree, 多agent, 任务切换]
 created: 2026-04-18
 ---
 

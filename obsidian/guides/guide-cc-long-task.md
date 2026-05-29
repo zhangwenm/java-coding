@@ -1,10 +1,9 @@
 ---
-tags:
-  - 工具链
-  - 工作流
-  - Claude-Code
-tool: Claude-Code
+tags: [工具链, Claude-Code, 长任务]
+date: 2026-04-18
+project: 工具链
 status: done
+retrieval_triggers: [长任务, 任务断点, 快照恢复, cmux]
 created: 2026-04-18
 ---
 

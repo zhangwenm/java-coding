@@ -1,8 +1,10 @@
 ---
 tags: [元知识, 分布式, 接口变更]
 date: 2026-04-22
+project: cross-domain
 scope: cross-domain
 status: done
+retrieval_triggers: [分布式契约, 接口变更, 协议变更, Hessian]
 ---
 
 # 分布式契约变更必须原子化

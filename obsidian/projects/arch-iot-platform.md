@@ -1,11 +1,11 @@
 ---
-tags:
-  - 架构
-  - iot
-  - 设计方案
+tags: [架构, iot, 设计方案]
 date: 2026-04-20
 project: iot-platform
 status: draft
+scope: cross-domain
+generalized: false
+retrieval_triggers: [IoT架构, 设备管理, 平台架构]
 confidence: 设计阶段未落地，待验证
 ---
 

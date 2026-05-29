@@ -1,11 +1,11 @@
 ---
-tags:
-  - 工具链
-  - Claude-Code
-  - 多Agent
+tags: [工具链, cmux, worktree, 多agent]
 date: 2026-04-18
 project: 工具链
 status: done
+scope: cross-domain
+generalized: false
+retrieval_triggers: [cmux架构, 多agent架构, worktree管理]
 ---
 
 # cmux — Claude Code 多 Agent 并行开发

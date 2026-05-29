@@ -1,3 +1,11 @@
+---
+tags: [工具链, 代码审查, Codex, Claude-Code]
+date: 2026-04-20
+project: 工具链
+status: done
+retrieval_triggers: [代码互审, codex, cross review, tech lead]
+---
+
 # Codex × Claude Code 互审方案
 
 > 2026-04-20 | 两个 AI 互相审查对方出的方案，你是 tech lead，它们是给你打工的

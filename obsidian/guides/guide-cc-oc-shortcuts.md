@@ -1,8 +1,9 @@
 ---
-tags:
-  - 快捷命令
-  - 工具
+tags: [工具链, Claude-Code, 快捷键]
 date: 2026-04-21
+project: 工具链
+status: done
+retrieval_triggers: [快捷键, shortcuts, 键盘操作, cc命令, oc命令]
 ---
 
 # CC & OC 快捷启动

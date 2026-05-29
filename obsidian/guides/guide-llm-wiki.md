@@ -1,8 +1,9 @@
 ---
 tags: [tools, obsidian, llm, batch-processing]
 date: 2026-04-20
-project: workflow
+project: 工具链
 status: active
+retrieval_triggers: [llm_wiki, 批量文档, 历史文档消化]
 ---
 
 # llm_wiki 使用指南

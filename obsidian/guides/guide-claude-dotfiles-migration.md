@@ -1,8 +1,9 @@
 ---
 tags: [tools, claude-code, dotfiles, migration]
 date: 2026-04-20
-project: workflow
+project: 工具链
 status: active
+retrieval_triggers: [dotfiles迁移, 配置同步]
 ---
 
 # Claude Code 配置迁移指南

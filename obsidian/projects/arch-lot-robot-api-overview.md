@@ -3,6 +3,7 @@ tags: [架构, lot, 接口全景]
 date: 2026-04-22
 project: lot
 status: done
+retrieval_triggers: [机器人接口, lot, 机器人控制, 接口全景]
 ---
 
 # LOT 机器人控制接口全景
@@ -14,7 +15,7 @@ status: done
 
 | 子项目 | 角色 | 核心功能 |
 |---|---|---|
-| `open-robot-call-api` | 对外开放层 | 第三方/H5 调用机器人任务（召唤、取消、回充等），详见 [[open-robot-call-api-接口文档]] |
+| `open-robot-call-api` | 对外开放层 | 第三方/H5 调用机器人任务（召唤、取消、回充等），详见 [[arch-lot-open-robot-call-api]] |
 | `open-api` | 统一开放平台 | 机器人直控 + 底盘任务流 + 调度查询，内部系统对接 |
 | `api` | 核心调度 API | 召唤、送物、取物、巡游等主逻辑，含同步/异步两种调用 |
 | `robot-api` | 机器人基础服务 | 门禁控制、SIM 卡、设备密码、版本查询、告警 |
@@ -26,7 +27,7 @@ status: done
 
 ## 一、open-robot-call-api（对外开放机器人召唤）
 
-详细字段说明见 [[open-robot-call-api-接口文档]]。
+详细字段说明见 [[arch-lot-open-robot-call-api]]。
 
 ### V5 核心控制（`RobotV5ControlApi`）
 
@@ -218,7 +219,7 @@ status: done
 | 接口路径 | 方法 | 功能 |
 |---|---|---|
 | `/api/v3/yuncang/isAvailable` | GET | 检查云仓设备是否可用 |
-| `/api/v2/yuncang/order/unifiedDispatching` | POST | 云仓统一调度（下发取/放货任务） |
+| `/api/v2/yuncang/order/unifiedDispatching` | POST | 云仓统一调度（下发取/放货任务），详见 [[arch-yuncang-unified-dispatching]] |
 | `/api/v2/manager/yuncang/task/putActionInfo` | POST | 云仓操作动作信息上报 |
 
 ---

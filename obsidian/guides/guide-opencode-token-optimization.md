@@ -1,3 +1,11 @@
+---
+tags: [工具链, OpenCode, token优化, 费用]
+date: 2026-04-20
+project: 工具链
+status: done
+retrieval_triggers: [token优化, opencode, 费用控制, 消耗分析]
+---
+
 # OpenCode Token 消耗优化指南
 
 > 2026-04-20 整理 | 基于实际分析 session ~75K tokens 的经验

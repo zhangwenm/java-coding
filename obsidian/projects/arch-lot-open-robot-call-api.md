@@ -3,6 +3,7 @@ tags: [架构, lot, open-robot-call-api, 接口文档]
 date: 2026-04-22
 project: lot
 status: done
+retrieval_triggers: [机器人API, open接口, 接口文档, robot-call, 验签, 签名算法, productId]
 ---
 
 # open-robot-call-api 机器人控制接口文档
@@ -17,6 +18,7 @@ status: done
 鉴权方式：
 - **appname + appSecret**：对外第三方调用（`permissionService.hasRobotPermission`）
 - **user token**：H5 页面用户直接调用（`userHasRobotPermission`）
+- **productId + ts + MD5 签名**：设备级请求验签（`ValidationFilter`，见下方验签机制章节）
 
 机器人类型识别规则（`BaseControlApi.getRobotController`）：
 
@@ -28,6 +30,63 @@ status: done
 | DELI / DL | DELI |
 | WATER / WT / OCEAN | CHASSIS（底盘） |
 | SC | SC（医疗舱） |
+
+---
+
+## 验签机制
+
+> 实现文件：`hk/robot-call-api/.../web/filter/ValidationFilter.java`
+> 开关：`permission.validate`（默认 `false`，生产必须开启）
+
+**结论**：所有 `/api/` 请求须携带 `productId + ts + sign`，服务端按 productId 查序列号拼签名串后 MD5 比对，±10 分钟内有效。
+
+### 签名算法
+
+```
+1. 收集所有请求参数（GET querystring 或 POST body 展开后合并）
+
+2. 排除以下 key：ts、sn、sign、空 key、空 value
+
+3. 其余参数格式化为 "key:value"，字典序升序排列
+
+4. 末尾追加（顺序固定，不参与排序）：
+     ts:{请求时间戳毫秒}
+     sn:{服务端按 productId 从 DB 查到的序列号}
+
+5. 所有 kv 用 "|" 拼接
+
+6. MD5 hex(拼接结果) == sign → 验签通过
+```
+
+### 时间戳规则
+
+`|System.currentTimeMillis() - ts| ≤ 10分钟`，**双向容忍**。
+
+> 注释原文：机器人上没有时间同步，有可能会比服务器时间快，因此不要求 ts 一定比服务器时间早。
+
+### POST body 格式
+
+| 格式 | 结构 | 判断依据 |
+|------|------|---------|
+| 旧格式 | `{"key1": "v1", "key2": "v2"}` | 无 `reqid` 字段 |
+| 新格式 | `{"reqid": "xxx", "params": {"key1": "v1"}}` | 有 `reqid` 字段 |
+
+两种格式最终都展开为同一个扁平 map 参与签名，`reqid` 本身也参与签名。
+
+### 跳过验签的路由
+
+- `/api/v2/phone/callback`
+- `/api/v1/broker/server-heartbeat/monitor`
+- `/api/v1/robot-call-api/heartbeat`
+
+### Gotcha
+
+| 坑 | 说明 |
+|----|------|
+| `sn` 不由客户端传 | 服务端用 `productId` 查 DB 获取，客户端传了也会被排除——泄露 sn 等同于泄露密钥 |
+| `ts` 和 `sn` 固定追加在末尾 | 不参与字典序排序，顺序写反必签名失败 |
+| 非字符串 JSON 字段 | 对象/数组用 `JSON.toJSONString(obj, SerializerFeature.MapSortField)` 序列化，key 排序后参与签名，客户端序列化顺序必须一致 |
+| `permission.validate` 默认 false | 本地/测试环境不验签，上生产前必须确认该配置已开启 |
 
 ---
 

@@ -1,8 +1,10 @@
 ---
 tags: [元知识, 多数据源, 数据库]
 date: 2026-04-22
+project: cross-domain
 scope: cross-domain
 status: done
+retrieval_triggers: [多数据源, DataSourceKey, AOP失效]
 ---
 
 # 多数据源切换在 AOP 边界上失效

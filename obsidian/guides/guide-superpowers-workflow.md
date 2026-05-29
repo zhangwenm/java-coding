@@ -3,6 +3,7 @@ tags: [superpowers, claude-code, 工具链, 工作流, ai驱动开发]
 date: 2026-04-23
 project: 工具链
 status: done
+retrieval_triggers: [superpowers, 开发流程, brainstorming, TDD]
 scope: cross-domain
 generalized: false
 ---

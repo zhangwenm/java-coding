@@ -46,3 +46,4 @@ Thumbs.db
 # 测试输出
 test-output/
 .worktrees/
+.gstack/

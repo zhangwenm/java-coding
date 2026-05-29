@@ -1,9 +1,9 @@
 ---
-tags:
-  - 工具链
-  - Obsidian
-  - 工作习惯
+tags: [工具链, obsidian, 工作流]
+date: 2026-04-20
+project: 工具链
 status: done
+retrieval_triggers: [obsidian习惯, 笔记流程, 日常记录]
 created: 2026-04-20
 ---
 
@@ -15,7 +15,7 @@ created: 2026-04-20
 
 | 你说             | Agent 动作                          |
 | -------------- | --------------------------------- |
-| "记录到 obsidian" | 分析内容类型 → 选目录 → 建文档 → 更新 README 索引 |
+| "记录到 obsidian" | 分析内容类型 → 选目录 → 建文档 → 更新 [[README]] 索引 |
 | "记一下 xxx"      | 同上                                |
 | "这个要记下来"       | 同上                                |
 
@@ -23,9 +23,9 @@ created: 2026-04-20
 
 | 内容类型 | 目录 | 文件名 | 举例 |
 |---------|------|--------|------|
-| 项目/系统架构分析 | `projects/` | `arch-项目名.md` | `arch-data-push.md` |
+| 项目/系统架构分析 | `projects/` | `arch-项目名.md` | `[[arch-data-push]].md` |
 | 踩坑记录 | `projects/` | `pitfalls-什么坑.md` | `pitfalls-hessian-多项目发布.md` |
-| 操作流程/指南 | `guides/` | `guide-做什么.md` | `guide-cmux-workflow.md` |
+| 操作流程/指南 | `guides/` | `guide-做什么.md` | `[[guide-cmux-workflow]].md` |
 | 开发任务 | `tasks/` | `task-分支名.md` | `task-fix-robot-offline.md` |
 | 具体操作步骤 | `guides/` | `howto-做什么.md` | `howto-配置多数据源.md` |
 | 临时记录，还没整理 | `inbox/` | 随意命名 | `会议纪要-0420.md` |

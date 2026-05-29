@@ -1,10 +1,9 @@
 ---
-tags:
-  - Claude
-  - worktree
-  - 并行开发
-  - 最佳实践
+tags: [工具链, worktree, 并行开发]
 date: 2026-04-21
+project: 工具链
+status: done
+retrieval_triggers: [worktree并行, 多任务, 并行开发, 最佳实践, gstack worktree, using-git-worktrees]
 ---
 
 # Claude + Git Worktree 并行开发最佳实践
@@ -182,3 +181,67 @@ cd .claude/worktrees/feature-auth && claude
                       ├─ 是 → 用 worktree spike，验证后决定是否合并
                       └─ 否 → 直接 cc 顺序推进
 ```
+
+---
+
+## gstack 的 using-git-worktrees skill（与 --worktree 的区别）
+
+**核心区别**：`claude --worktree` 是 Claude Code 内置功能（你手动触发）；`using-git-worktrees` 是 gstack skill，由 Claude 在执行任务时自动调用。
+
+### 触发方式
+
+不是你直接运行命令，而是告诉 Claude 在隔离工作区做事：
+
+```
+你：基于 develop 分支，在隔离工作区实现 feature/xxx
+Claude：我来用 using-git-worktrees 建隔离工作区...（自动执行）
+```
+
+### 存放目录
+
+优先级：`.worktrees/`（项目本地隐藏目录）> `worktrees/` > CLAUDE.md 配置 > 询问用户。
+
+Maven 项目提前建好：
+
+```bash
+mkdir .worktrees
+echo '.worktrees/' >> .gitignore
+```
+
+skill 会验证目录在 `.gitignore` 里，不在则自动补上再提交。
+
+### 基准分支：默认当前 HEAD（关键坑）
+
+skill 执行的是 `git worktree add .worktrees/<branch> -b <branch>`，**不指定来源**，因此新分支基于**当前你所在的分支（HEAD）**，不是 `origin/HEAD`，也不是 `develop`。
+
+**实际影响**：
+
+| 你当前在哪 | 新 worktree 基于 |
+|-----------|----------------|
+| main | main |
+| develop | develop |
+| feature/other | feature/other（通常不对）|
+
+**规避方法**：在提示词里明确说来源分支：
+
+```
+"基于 develop 分支，在隔离工作区实现 xxx"
+```
+
+或者在让 Claude 建 worktree 前先 `git checkout develop`。
+
+### 自动做的事
+
+1. 检查并确保目录在 `.gitignore`
+2. `git worktree add` 新建分支
+3. 检测项目类型，自动跑依赖安装（Maven → `mvn install`，Node → `npm install`，等）
+4. 跑一遍测试，确认基线干净，失败则暂停询问
+
+### 与 claude --worktree 对比
+
+| 维度 | claude --worktree | gstack using-git-worktrees |
+|------|-------------------|---------------------------|
+| 触发方 | 用户手动 | Claude 自动（任务执行中）|
+| 存放位置 | `.claude/worktrees/` | `.worktrees/`（可配置）|
+| 基准分支 | `origin/HEAD` | 当前 HEAD ⚠️ |
+| 适用场景 | 你要同时跑多个会话 | Claude 在单次任务中建隔离环境 |

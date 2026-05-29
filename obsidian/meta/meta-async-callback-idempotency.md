@@ -1,8 +1,10 @@
 ---
 tags: [元知识, 异步, 回调, 幂等]
 date: 2026-04-22
+project: cross-domain
 scope: cross-domain
 status: done
+retrieval_triggers: [幂等, 去重, 异步回调, 重复消费]
 ---
 
 # 异步回调必须假设重复投递

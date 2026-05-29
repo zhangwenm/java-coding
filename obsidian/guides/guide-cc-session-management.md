@@ -3,6 +3,7 @@ tags: [工具链, Claude-Code, 上下文管理]
 date: 2026-04-17
 project: 工具链
 status: done
+retrieval_triggers: [会话管理, compact, rewind, 上下文管理]
 source: https://weibo.com/2194035935/QB29fgdIA（翻译自 Claude 官方博客）
 ---
 

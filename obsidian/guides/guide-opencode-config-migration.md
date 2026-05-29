@@ -1,8 +1,9 @@
 ---
 tags: [tools, opencode, dotfiles, migration]
 date: 2026-04-20
-project: workflow
+project: 工具链
 status: active
+retrieval_triggers: [opencode配置, 配置迁移]
 ---
 
 # OpenCode 配置迁移指南

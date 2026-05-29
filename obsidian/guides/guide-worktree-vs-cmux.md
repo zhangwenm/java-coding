@@ -1,11 +1,9 @@
 ---
-tags:
-  - Claude
-  - worktree
-  - cmux
-  - 对比
-  - 工作流
+tags: [工具链, worktree, cmux]
 date: 2026-04-21
+project: 工具链
+status: done
+retrieval_triggers: [worktree对比, cmux对比, 工具选择]
 ---
 
 # Claude Worktree vs cmux：选哪个？

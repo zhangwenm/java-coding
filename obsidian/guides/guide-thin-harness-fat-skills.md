@@ -3,6 +3,7 @@ tags: [工具链, 架构思想, Claude-Code, OpenCode]
 date: 2026-04-20
 project: 工具链
 status: done
+retrieval_triggers: [薄缰绳, harness, skill架构, Resolver路由]
 source: https://weibo.com/5078115336/QBw11mTId（Garry Tan / YC thin harness fat skills）
 ---
 

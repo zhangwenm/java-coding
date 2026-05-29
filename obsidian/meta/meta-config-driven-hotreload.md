@@ -1,8 +1,10 @@
 ---
 tags: [元知识, 配置, 热加载, 并发]
 date: 2026-04-22
+project: cross-domain
 scope: cross-domain
 status: done
+retrieval_triggers: [热重载, 配置驱动, 动态配置]
 ---
 
 # 配置驱动的动态组件热加载有并发写风险
