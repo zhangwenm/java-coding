@@ -90,10 +90,10 @@ public class DeviceIdGenerator {
 
     public static void main(String[] args) {
         // 示例
-        String type = "X1";
+        String type = "X2";
         int series = 1;//“S”后面的数字，如01写1
         int batch = 5;//“B”后面的数字，如01写1
-        int start = 734;//“N”后面的数字，如005写5
+        int start = 123;//“N”后面的数字，如005写5
         int num = 1;//不用动，控制生成的个数
 
         System.out.println("设备ID:");
@@ -104,7 +104,7 @@ public class DeviceIdGenerator {
     }
 
 
-    public static String generateSign(Map<String, String> args) {
+    public static String generateSign(Map<String, Object> args) {
         long timestamp = System.currentTimeMillis();
         args.put("timestamp", String.valueOf(timestamp));
         log.info("Timestamp should be {}", timestamp);

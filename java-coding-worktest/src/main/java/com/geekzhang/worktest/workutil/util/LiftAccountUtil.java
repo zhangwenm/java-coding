@@ -15,8 +15,8 @@ public class LiftAccountUtil {
     public static void main(String[] args) {
 //        String password = "D3AD0ADC372B36521E483C6736521E48";
         //String productId = "2000dbe120ec49a4";
-        Integer id = 63271;
-        String proListStr ="440050000A0000344351534E";
+        Integer id = 63298;
+        String proListStr ="350034000400003234373156";
         String[] proList  = proListStr.split(",");
         for (int i = 0; i < proList.length; i++) {
 
@@ -26,7 +26,7 @@ public class LiftAccountUtil {
 
             if(StringUtils.isNotBlank(productId)){
 
-                String password = "90AD70DDF32344341351594E44341351";
+                String password = "E1AD14DDFCFF35320037355635320037";
 
 
                 String encryptedPassword = Hashing.sha256()

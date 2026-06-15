@@ -28,12 +28,25 @@ public class ConfigSetClient {
 
     public static void main(String[] args) throws Exception {
         // 业务参数（不含 timestamp、sign，由 generateSign 内部填充 timestamp）
-        Map<String, String> params = new HashMap<>();
-        params.put("id",        "34641630");
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",        "41981051");
         params.put("db",        "bjyj_dev");
-        params.put("product",   "i0m7S3JQXku");
-        params.put("warn_st", "6:00");
+        params.put("product",   "i0m7wDzONEt");
+        params.put("warn_st", "09:24");
         params.put("warn_ed", "22:00");
+        params.put("hr_warn_start", "09:24");
+        params.put("hr_warn_end", "22:00");
+        params.put("br_warn_start", "09:24");
+        params.put("br_warn_end", "22:00");
+        params.put("br_switch", 1);
+        params.put("hr_switch", 1);
+        params.put("hr_all_day", 1);
+        params.put("br_all_day", 1);
+        params.put("interval", 1);
+        params.put("hr_min", 80);
+        params.put("hr_max", 85);
+        params.put("br_min", 12);
+        params.put("br_max", 13);
         params.put("appkey",    "78e51369d811632f0dc13e45c11afe07");
 
         // 生成 sign，同时会向 params 中写入 timestamp
@@ -47,11 +60,11 @@ public class ConfigSetClient {
     /**
      * 拼接参数到 URL 后发 POST 请求（无 body，参数全在 query string）
      */
-    private static String doPost(String baseUrl, Map<String, String> params) throws Exception {
+    private static String doPost(String baseUrl, Map<String, Object> params) throws Exception {
         StringBuilder query = new StringBuilder();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
             if (query.length() > 0) query.append("&");
-            query.append(entry.getKey()).append("=").append(entry.getValue());
+            query.append(entry.getKey()).append("=").append(entry.getValue().toString());
         }
 
         URL url = new URL(baseUrl + "?" + query);

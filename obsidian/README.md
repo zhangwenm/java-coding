@@ -56,6 +56,7 @@ obsidian/
 | [[guides/guide-cc-oc-shortcuts]] | cc / oc | 快捷启动命令速查 |
 | [[guides/guide-cc-session-management]] | Claude Code | 会话管理与上下文指南 |
 | [[guides/guide-obsidian-daily-habit]] | Obsidian | 日常记录习惯（Agent 行为指令） |
+| [[guides/guide-docker-postgres-ddl-import]] | Docker + PostgreSQL | 导出 DDL 导入当前容器数据库的改造与避坑 |
 
 ## 写作规范
 
