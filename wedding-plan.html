@@ -135,6 +135,51 @@ body {
 }
 
 /* ===========================
+   参考效果图 Ref Images
+   =========================== */
+.ref-image {
+  text-align: center;
+  margin: var(--space-3) 0;
+}
+
+.ref-image img {
+  max-width: 600px;
+  width: 100%;
+  border-radius: var(--r-md);
+  box-shadow: 0 8px 30px var(--shadow);
+  border: 3px solid var(--white);
+  transition: transform var(--t-normal);
+}
+
+.ref-image img:hover {
+  transform: scale(1.02);
+}
+
+.ref-image .ref-caption {
+  font-size: 0.8rem;
+  color: var(--light-text);
+  margin-top: var(--space-1);
+}
+
+/* 横排参考图（餐饮区） */
+.ref-image-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.ref-image-row .ref-image {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .ref-image-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
    导航栏 Navigation
    =========================== */
 .nav {
@@ -1035,6 +1080,11 @@ tfoot td {
       <div class="leaf"><span class="leaf-line"></span>🤍<span class="leaf-line"></span></div>
     </div>
 
+    <div class="ref-image reveal">
+      <img src="wedding-photos/checkin.jpg" alt="签到区 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 参考效果</p>
+    </div>
+
     <div class="card-grid">
       <div class="card accent-pink reveal">
         <span class="card-num">No.01</span>
@@ -1060,6 +1110,11 @@ tfoot td {
         <li>冰镇矿泉水桶</li>
       </ul>
     </div>
+
+    <div class="ref-image reveal">
+      <img src="wedding-photos/welcome.jpg" alt="迎宾/侧边布置 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 迎宾/侧边布置参考</p>
+    </div>
   </div>
 </section>
 
@@ -1072,6 +1127,11 @@ tfoot td {
       <span class="en">Photo Zone</span>
       <div class="cn">三、大卡拍照区</div>
       <div class="leaf"><span class="leaf-line"></span>📸<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="ref-image reveal">
+      <img src="wedding-photos/photo.jpg" alt="大卡拍照区 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 参考效果</p>
     </div>
 
     <div class="subsection reveal">
@@ -1106,6 +1166,11 @@ tfoot td {
       </div>
     </div>
 
+    <div class="ref-image reveal">
+      <img src="wedding-photos/fans.jpg" alt="扇子悬挂区 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 扇子悬挂区参考</p>
+    </div>
+
     <div class="subsection reveal">
       <h3>创意出片角</h3>
       <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; justify-content:center;">
@@ -1126,6 +1191,11 @@ tfoot td {
       <span class="en">Fun & Games</span>
       <div class="cn">四、互动游戏区</div>
       <div class="leaf"><span class="leaf-line"></span>🎯<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="ref-image reveal">
+      <img src="wedding-photos/games.jpg" alt="互动游戏区 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 参考效果</p>
     </div>
 
     <div class="card-grid">
@@ -1175,6 +1245,11 @@ tfoot td {
       <span class="en">Cocktail Bar</span>
       <div class="cn">五、调酒特调区</div>
       <div class="leaf"><span class="leaf-line"></span>🍹<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="ref-image reveal">
+      <img src="wedding-photos/bar.jpg" alt="Mini 吧台/调酒区 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 参考效果</p>
     </div>
 
     <div class="reveal" style="background: var(--white); border-radius: var(--r-lg); padding: var(--space-4); box-shadow: 0 4px 24px var(--shadow); margin-bottom: var(--space-4); text-align:center;">
@@ -1236,6 +1311,21 @@ tfoot td {
       <div class="leaf"><span class="leaf-line"></span>🍪<span class="leaf-line"></span></div>
     </div>
 
+    <div class="ref-image-row reveal">
+      <div class="ref-image">
+        <img src="wedding-photos/snack.jpg" alt="零食区 参考效果" loading="lazy" />
+        <p class="ref-caption">📷 零食区参考</p>
+      </div>
+      <div class="ref-image">
+        <img src="wedding-photos/watermelon.jpg" alt="切瓜区 参考效果" loading="lazy" />
+        <p class="ref-caption">📷 切瓜区参考</p>
+      </div>
+      <div class="ref-image">
+        <img src="wedding-photos/favors.jpg" alt="伴手礼区 参考效果" loading="lazy" />
+        <p class="ref-caption">📷 伴手礼区参考</p>
+      </div>
+    </div>
+
     <div class="card-grid">
       <!-- 零食区 -->
       <div class="card accent reveal">
@@ -1276,6 +1366,11 @@ tfoot td {
       <span class="en">The Ceremony</span>
       <div class="cn">七、主仪式区 ★ 全场核心</div>
       <div class="leaf"><span class="leaf-line"></span>💒<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="ref-image reveal">
+      <img src="wedding-photos/ceremony.jpg" alt="主仪式区 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 参考效果</p>
     </div>
 
     <div class="reveal" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:var(--space-2); margin-bottom:var(--space-4);">
@@ -1333,6 +1428,11 @@ tfoot td {
           <div class="flow-content"><strong>仪式结束</strong><span>引导宾客前往午宴厅</span></div>
         </div>
       </div>
+    </div>
+
+    <div class="ref-image reveal">
+      <img src="wedding-photos/bubble.jpg" alt="泡泡机效果 参考效果" loading="lazy" />
+      <p class="ref-caption">📷 泡泡机梦幻效果参考</p>
     </div>
 
     <div class="reveal" style="margin-top:var(--space-5);">
