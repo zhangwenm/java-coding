@@ -143,8 +143,10 @@ body {
 }
 
 .ref-image img {
-  max-width: 300px;
-  width: 100%;
+  width: 300px;
+  height: 380px;
+  object-fit: cover;
+  object-position: center top;
   border-radius: var(--r-md);
   box-shadow: 0 6px 20px var(--shadow);
   border: 3px solid var(--white);
@@ -178,7 +180,10 @@ body {
 }
 
 .ref-image-row .ref-image img {
-  max-width: 200px;
+  width: 200px;
+  height: 260px;
+  object-fit: cover;
+  object-position: center top;
 }
 
 @media (max-width: 768px) {
@@ -211,7 +216,9 @@ body {
 
 .lightbox img {
   max-width: 90vw;
-  max-height: 90vh;
+  max-height: 85vh;
+  object-fit: cover;
+  object-position: center top;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
