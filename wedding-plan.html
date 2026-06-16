@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>草坪婚礼 · 游园会方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+/* ===========================
+   设计系统 Design Tokens
+   =========================== */
+:root {
+  /* 色彩 */
+  --morandi-green: #7B9978;
+  --morandi-green-light: #A8C0A6;
+  --morandi-green-dark: #5C7A59;
+  --warm-white: #F5F0EB;
+  --warm-white-deep: #EDE6DE;
+  --pinky: #E8B4B8;
+  --pinky-light: #F2D4D6;
+  --wood: #C4A882;
+  --wood-light: #D9C4A9;
+  --dark-text: #3D3D3D;
+  --light-text: #8C8C8C;
+  --white: #FFFFFF;
+  --shadow: rgba(123, 153, 120, 0.12);
+  --shadow-deep: rgba(61, 61, 61, 0.08);
+
+  /* 圆角 */
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-full: 999px;
+
+  /* 间距 */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  /* 过渡 */
+  --t-fast: 0.2s ease;
+  --t-normal: 0.4s ease;
+  --t-slow: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* 字体 */
+  --font-en-script: 'Dancing Script', cursive, system-ui;
+  --font-en-display: 'Playfair Display', 'Georgia', serif;
+  --font-cn: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+/* ===========================
+   基础重置 Reset
+   =========================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+body {
+  font-family: var(--font-cn);
+  color: var(--dark-text);
+  background: var(--warm-white);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ===========================
+   通用工具 Utilities
+   =========================== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+.section {
+  padding: var(--space-7) 0;
+  position: relative;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.section-title .en {
+  font-family: var(--font-en-script);
+  font-size: 1.6rem;
+  color: var(--morandi-green);
+  font-weight: 600;
+  display: block;
+  line-height: 1;
+}
+
+.section-title .cn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-top: var(--space-1);
+  letter-spacing: 2px;
+}
+
+.section-title .leaf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  opacity: 0.5;
+}
+
+.section-title .leaf-line {
+  width: 40px;
+  height: 1.5px;
+  background: var(--morandi-green-light);
+}
+
+/* 淡入动画 */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   导航栏 Navigation
+   =========================== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245, 240, 235, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(123, 153, 120, 0.15);
+  transition: box-shadow var(--t-normal);
+}
+
+.nav.scrolled {
+  box-shadow: 0 2px 20px var(--shadow);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px var(--space-3);
+  gap: var(--space-2);
+}
+
+.nav-logo {
+  font-family: var(--font-en-script);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--morandi-green);
+  white-space: nowrap;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav-menu::-webkit-scrollbar { display: none; }
+
+.nav-menu a {
+  display: block;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  color: var(--light-text);
+  text-decoration: none;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+  transition: all var(--t-fast);
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: var(--morandi-green);
+  background: rgba(123, 153, 120, 0.1);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--morandi-green);
+  border-radius: 2px;
+  transition: var(--t-fast);
+}
+
+/* ===========================
+   Hero 区
+   =========================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #F5F0EB 0%, #EDE6DE 40%, #F5F0EB 100%);
+}
+
+.hero-bg { position: absolute; inset: 0; pointer-events: none; }
+
+.hero-bg svg { position: absolute; opacity: 0.18; }
+
+.hero-bg .top-left { top: -20px; left: -30px; transform: rotate(15deg); }
+.hero-bg .top-right { top: 40px; right: -40px; transform: rotate(-20deg); }
+.hero-bg .bottom-left { bottom: -30px; left: 20px; transform: rotate(-10deg); }
+.hero-bg .bottom-right { bottom: 0px; right: -20px; transform: rotate(25deg); }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-4);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-en-script);
+  font-size: 1.8rem;
+  color: var(--morandi-green);
+  margin-bottom: var(--space-2);
+  opacity: 0;
+  animation: heroFadeUp 0.9s 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: var(--font-en-display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 600;
+  color: var(--dark-text);
+  letter-spacing: 3px;
+  margin-bottom: var(--space-1);
+  opacity: 0;
+  animation: heroFadeUp 0.9s 0.4s forwards;
+}
+
+.hero .hero-sub-cn {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 600;
+  color: var(--morandi-green-dark);
+  margin-bottom: var(--space-3);
+  letter-spacing: 6px;
+  opacity: 0;
+  animation: heroFadeUp 0.9s 0.6s forwards;
+}
+
+.hero p {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--light-text);
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: heroFadeUp 0.9s 0.8s forwards;
+}
+
+.hero-divider {
+  width: 120px;
+  height: 2px;
+  margin: var(--space-4) auto;
+  background: linear-gradient(90deg, transparent, var(--morandi-green-light), transparent);
+  opacity: 0;
+  animation: heroFadeUp 0.9s 0.7s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: heroFadeUp 1s 1.2s forwards, bounce 2s 2s infinite;
+}
+
+.hero-scroll .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--morandi-green);
+  border-radius: 50%;
+  margin: 0 auto 6px;
+}
+
+.hero-scroll .line {
+  width: 1.5px;
+  height: 30px;
+  background: var(--morandi-green-light);
+  margin: 0 auto;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ===========================
+   时间轴 Timeline
+   =========================== */
+.timeline {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--morandi-green-light), var(--pinky), var(--morandi-green-light));
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  position: relative;
+}
+
+.timeline-dot {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--warm-white);
+  border: 3px solid var(--morandi-green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  z-index: 1;
+  transition: transform var(--t-normal);
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.1);
+}
+
+.timeline-item.highlight .timeline-dot {
+  border-color: var(--pinky);
+  background: var(--pinky-light);
+}
+
+.timeline-card {
+  flex: 1;
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: var(--space-2) var(--space-3);
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform var(--t-normal), box-shadow var(--t-normal);
+}
+
+.timeline-card:hover {
+  transform: translateX(6px);
+  box-shadow: 0 6px 28px rgba(123,153,120,0.18);
+}
+
+.timeline-time {
+  font-family: var(--font-en-display);
+  font-size: 0.9rem;
+  color: var(--morandi-green);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.timeline-content {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.timeline-item.highlight .timeline-content::after {
+  content: ' ★';
+  color: var(--pinky);
+}
+
+/* ===========================
+   卡片网格 Card Grid
+   =========================== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-3);
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: var(--space-3);
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform var(--t-normal), box-shadow var(--t-normal);
+  border-top: 4px solid transparent;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(123,153,120,0.2);
+}
+
+.card.accent { border-top-color: var(--morandi-green); }
+.card.accent-pink { border-top-color: var(--pinky); }
+.card.accent-wood { border-top-color: var(--wood); }
+
+.card .card-num {
+  font-family: var(--font-en-display);
+  font-size: 0.8rem;
+  color: var(--wood);
+  font-weight: 600;
+}
+
+.card .card-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-1);
+  display: block;
+}
+
+.card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: var(--space-1);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card .star-badge {
+  font-size: 0.65rem;
+  background: var(--pinky-light);
+  color: var(--pinky);
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.card .card-desc {
+  font-size: 0.9rem;
+  color: var(--light-text);
+  line-height: 1.8;
+}
+
+.card .card-materials {
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px dashed rgba(140,140,140,0.2);
+  font-size: 0.82rem;
+  color: var(--morandi-green-dark);
+}
+
+.card .card-materials::before {
+  content: '📦 物料：';
+  font-weight: 600;
+}
+
+/* ===========================
+   子板块（拍照区等）
+   =========================== */
+.subsection {
+  margin-bottom: var(--space-4);
+}
+
+.subsection h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: var(--space-2);
+  padding-left: 14px;
+  border-left: 4px solid var(--morandi-green);
+}
+
+.subsection h3 .star-badge {
+  font-size: 0.7rem;
+  background: var(--pinky-light);
+  color: var(--pinky);
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.feature-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.feature-list li {
+  font-size: 0.9rem;
+  color: var(--dark-text);
+  padding-left: 24px;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: '🌿';
+  position: absolute;
+  left: 0;
+  font-size: 0.85rem;
+}
+
+/* ===========================
+   表格 Table
+   =========================== */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--r-md);
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  font-size: 0.9rem;
+}
+
+thead {
+  background: var(--morandi-green);
+  color: var(--white);
+}
+
+th {
+  padding: 14px var(--space-2);
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px var(--space-2);
+  border-bottom: 1px solid rgba(140,140,140,0.1);
+  color: var(--dark-text);
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody tr:hover { background: rgba(123,153,120,0.04); }
+
+tfoot td {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--morandi-green-dark);
+  background: var(--warm-white);
+}
+
+/* ===========================
+   仪式流程嵌套时间线
+   =========================== */
+.ceremony-flow {
+  max-width: 760px;
+  margin: 0 auto var(--space-5);
+}
+
+.flow-item {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px dashed rgba(123,153,120,0.2);
+  align-items: center;
+}
+
+.flow-time {
+  font-family: var(--font-en-display);
+  font-weight: 600;
+  color: var(--morandi-green);
+  font-size: 0.9rem;
+}
+
+.flow-content strong {
+  display: inline-block;
+  font-size: 1rem;
+  color: var(--dark-text);
+  margin-right: 8px;
+}
+
+.flow-content span {
+  font-size: 0.85rem;
+  color: var(--light-text);
+}
+
+.flow-item.star .flow-content strong::after {
+  content: ' ⭐';
+  font-size: 0.85rem;
+}
+
+/* 音乐建议 */
+.music-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.music-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  padding: 12px 18px;
+  border-radius: var(--r-full);
+  box-shadow: 0 2px 12px var(--shadow);
+  font-size: 0.88rem;
+}
+
+.music-item .music-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.music-item .music-label {
+  font-weight: 600;
+  color: var(--morandi-green-dark);
+  white-space: nowrap;
+}
+
+.music-item .music-name {
+  color: var(--light-text);
+  font-size: 0.82rem;
+}
+
+/* ===========================
+   草坪俯视图
+   =========================== */
+.lawn-map {
+  background: linear-gradient(135deg, #E8F0E5 0%, #DCE8D9 100%);
+  border-radius: var(--r-lg);
+  padding: var(--space-3);
+  box-shadow: inset 0 2px 20px rgba(123,153,120,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.lawn-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 1px, transparent 1px),
+    radial-gradient(circle at 60% 70%, rgba(255,255,255,0.2) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.25) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.map-zone {
+  background: rgba(255,255,255,0.82);
+  border-radius: var(--r-sm);
+  padding: var(--space-2);
+  text-align: center;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  transition: transform var(--t-normal);
+  backdrop-filter: blur(4px);
+}
+
+.map-zone:hover { transform: scale(1.05); }
+
+.map-zone .zone-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.map-zone .zone-name { font-weight: 700; color: var(--dark-text); }
+.map-zone .zone-detail { font-size: 0.72rem; color: var(--light-text); margin-top: 2px; }
+
+.map-zone.bar-area { grid-column: 1 / -1; }
+.map-zone.photo-area { grid-column: 1 / 2; grid-row: 2; }
+.map-zone.ceremony-area { grid-column: 2 / 3; grid-row: 2; min-height: 140px; background: rgba(247,227,229,0.9); }
+.map-zone.game-area { grid-column: 3 / 4; grid-row: 2; }
+.map-zone.entry-area { grid-column: 1 / -1; }
+
+.map-zone.ceremony-area::after {
+  content: '🌸 ⛩️ 🌸';
+  display: block;
+  margin-top: 4px;
+  font-size: 1rem;
+}
+
+.map-legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+  font-size: 0.78rem;
+  color: var(--light-text);
+}
+
+.map-legend span { display: flex; align-items: center; gap: 4px; }
+.map-legend .dot-sm {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+/* ===========================
+   Tips 区
+   =========================== */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-2);
+}
+
+.tip-item {
+  display: flex;
+  gap: 14px;
+  background: var(--white);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--r-md);
+  box-shadow: 0 3px 14px var(--shadow);
+  transition: transform var(--t-normal);
+  align-items: flex-start;
+}
+
+.tip-item:hover { transform: translateY(-4px); }
+
+.tip-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--morandi-green);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.tip-content { font-size: 0.88rem; line-height: 1.7; }
+
+/* ===========================
+   Footer
+   =========================== */
+.footer {
+  text-align: center;
+  padding: var(--space-5) var(--space-3);
+  background: var(--warm-white-deep);
+  color: var(--light-text);
+  font-size: 0.85rem;
+}
+
+.footer .footer-flower {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-1);
+}
+
+/* ===========================
+   响应式
+   =========================== */
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+
+  .nav-menu {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(245, 240, 235, 0.97);
+    backdrop-filter: blur(20px);
+    padding: var(--space-2);
+    gap: 2px;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: var(--t-normal);
+    pointer-events: none;
+    box-shadow: 0 10px 30px var(--shadow);
+  }
+
+  .nav-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-menu a { padding: 12px 18px; font-size: 0.95rem; }
+
+  .section { padding: var(--space-5) 0; }
+  .section-title .cn { font-size: 1.35rem; }
+
+  .timeline::before { left: 20px; }
+  .timeline-dot { width: 42px; height: 42px; font-size: 0.85rem; }
+  .timeline-item { gap: var(--space-2); }
+
+  .flow-item { grid-template-columns: 60px 1fr; gap: 8px; }
+  .flow-time { font-size: 0.8rem; }
+
+  .map-grid { grid-template-columns: 1fr; }
+  .map-zone.photo-area, .map-zone.ceremony-area, .map-zone.game-area {
+    grid-column: 1; grid-row: auto;
+  }
+  .map-zone.ceremony-area { min-height: 100px; }
+
+  .nav-logo { font-size: 1.1rem; }
+}
+
+@media (max-width: 480px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .hero h1 { letter-spacing: 1px; }
+}
+
+/* ===========================
+   打印样式
+   =========================== */
+@media print {
+  .nav, .hero-scroll, .nav-toggle { display: none; }
+
+  body { background: white; font-size: 11pt; line-height: 1.5; }
+
+  .section { padding: 20px 0; page-break-inside: avoid; }
+
+  .reveal { opacity: 1; transform: none; }
+
+  .hero {
+    min-height: auto;
+    padding: 40px 20px;
+    background: white;
+  }
+
+  .card, .timeline-card, .tip-item {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  .lawn-map { page-break-inside: avoid; }
+
+  table { font-size: 9pt; }
+  th, td { padding: 6px 8px; }
+
+  .container { max-width: 100%; }
+
+  a[href]::after { content: ''; }
+
+  h2, h3 { page-break-after: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===========================
+     导航栏
+     =========================== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Wedding Plan</div>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#timeline">整体时间轴</a></li>
+      <li><a href="#checkin">迎宾签到</a></li>
+      <li><a href="#photo">大卡拍照</a></li>
+      <li><a href="#games">互动游戏</a></li>
+      <li><a href="#cocktail">调酒区</a></li>
+      <li><a href="#ceremony">主仪式区</a></li>
+      <li><a href="#materials">物料清单</a></li>
+      <li><a href="#map">草坪布局</a></li>
+      <li><a href="#tips">布置Tips</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===========================
+     Hero
+     =========================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <!-- 左上角叶子 -->
+    <svg class="top-left" width="200" height="200" viewBox="0 0 200 200" fill="none">
+      <path d="M20 80 Q40 20, 100 30 Q60 60, 50 120 Z" fill="#7B9978"/>
+      <path d="M30 90 Q50 40, 90 50" stroke="#5C7A59" stroke-width="1.5" fill="none"/>
+      <circle cx="100" cy="30" r="4" fill="#E8B4B8"/>
+      <circle cx="115" cy="38" r="3" fill="#E8B4B8"/>
+      <path d="M70 60 Q80 50, 85 65 Q75 70, 70 60 Z" fill="#E8B4B8" opacity="0.7"/>
+    </svg>
+    <!-- 右上角叶子 -->
+    <svg class="top-right" width="220" height="220" viewBox="0 0 220 220" fill="none">
+      <path d="M200 60 Q160 10, 90 40 Q140 50, 150 110 Z" fill="#7B9978"/>
+      <path d="M180 70 Q140 30, 100 50" stroke="#5C7A59" stroke-width="1.5" fill="none"/>
+      <circle cx="90" cy="40" r="5" fill="#E8B4B8"/>
+      <circle cx="80" cy="55" r="3" fill="#E8B4B8"/>
+      <path d="M120 60 Q110 50, 105 65 Q115 70, 120 60 Z" fill="#E8B4B8" opacity="0.7"/>
+    </svg>
+    <!-- 左下角叶子 -->
+    <svg class="bottom-left" width="180" height="180" viewBox="0 0 180 180" fill="none">
+      <path d="M30 100 Q10 150, 60 160 Q50 120, 80 100 Z" fill="#7B9978"/>
+      <circle cx="50" cy="155" r="4" fill="#C4A882"/>
+    </svg>
+    <!-- 右下角叶子 -->
+    <svg class="bottom-right" width="200" height="200" viewBox="0 0 200 200" fill="none">
+      <path d="M170 140 Q190 80, 130 80 Q150 110, 120 160 Z" fill="#7B9978"/>
+      <path d="M160 130 Q180 90, 140 90" stroke="#5C7A59" stroke-width="1.5" fill="none"/>
+      <circle cx="130" cy="80" r="4" fill="#E8B4B8"/>
+      <circle cx="120" cy="92" r="3" fill="#C4A882"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Welcome to Our Wedding</p>
+    <h1>草坪婚礼 · 游园会方案</h1>
+    <p class="hero-sub-cn">一场关于爱与欢乐的户外仪式</p>
+    <div class="hero-divider"></div>
+    <p>阳光、微风、花瓣与誓言<br>让我们在草坪上，见证最温柔的爱情</p>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="dot"></div>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ===========================
+     一、整体时间轴
+     =========================== -->
+<section class="section" id="timeline">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Timeline</span>
+      <div class="cn">一、整体时间轴</div>
+      <div class="leaf"><span class="leaf-line"></span>🌿<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-dot">🌿</div>
+        <div class="timeline-card">
+          <div class="timeline-time">13:30 — 14:30</div>
+          <div class="timeline-content">宾客到达 → 迎宾签到区</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🎪</div>
+        <div class="timeline-card">
+          <div class="timeline-time">14:30 — 15:10</div>
+          <div class="timeline-content">互动游戏区开放（套圈、纸飞机、漆扇DIY…）</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">📸</div>
+        <div class="timeline-card">
+          <div class="timeline-time">15:10 — 15:40</div>
+          <div class="timeline-content">大卡拍照区自由打卡 + Photo Booth</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🍹</div>
+        <div class="timeline-card">
+          <div class="timeline-time">15:40 — 16:10</div>
+          <div class="timeline-content">调酒特调区体验</div>
+        </div>
+      </div>
+      <div class="timeline-item highlight">
+        <div class="timeline-dot">💒</div>
+        <div class="timeline-card">
+          <div class="timeline-time">16:10 — 16:50</div>
+          <div class="timeline-content">主仪式区（First Look → 证婚 → 誓言 → 交换戒指 → 亲吻 → 抛花）</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🌇</div>
+        <div class="timeline-card">
+          <div class="timeline-time">16:50 — 18:00</div>
+          <div class="timeline-content">晚餐 + 自由社交 + 日落拍照</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     二、迎宾签到区
+     =========================== -->
+<section class="section" id="checkin" style="background: var(--warm-white-deep);">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Check-in Area</span>
+      <div class="cn">二、迎宾签到区</div>
+      <div class="leaf"><span class="leaf-line"></span>🤍<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card accent-pink reveal">
+        <span class="card-num">No.01</span>
+        <h3>拍立得签到墙 <span class="star-badge">⭐ 推荐</span></h3>
+        <p class="card-desc">宾客到场合影拍立得 → 写祝福 → 贴上签到墙</p>
+        <div class="card-materials">拍立得相机×2、相纸120张、签到墙KT板（树形/花拱造型）、马克笔</div>
+      </div>
+      <div class="card accent reveal">
+        <span class="card-num">No.02</span>
+        <h3>红包签到</h3>
+        <p class="card-desc">刮刮乐贴签到板，刮中奖券（小礼品/游戏币）</p>
+        <div class="card-materials">定制刮刮卡60张、签到展架</div>
+      </div>
+      <div class="card accent-wood reveal">
+        <span class="card-num">No.03</span>
+        <h3>指纹树签到</h3>
+        <p class="card-desc">宾客按指纹当树叶，签上名字</p>
+        <div class="card-materials">指纹树画布、彩色印泥（绿/粉/黄）、湿巾</div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: var(--space-4); background: var(--white); border-radius: var(--r-md); padding: var(--space-3); box-shadow: 0 4px 20px var(--shadow);">
+      <h3 style="font-size:1rem; color: var(--morandi-green-dark); margin-bottom: var(--space-2);">🪑 签到台搭配</h3>
+      <ul class="feature-list" style="grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); display:grid;">
+        <li>新人婚纱照小摆台 + 鲜花瓶</li>
+        <li>迎宾牌（"Welcome to Our Wedding"）</li>
+        <li>防晒霜 / 驱蚊液 / 草帽篮子</li>
+        <li>冰镇矿泉水桶</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     三、大卡拍照区
+     =========================== -->
+<section class="section" id="photo">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Photo Zone</span>
+      <div class="cn">三、大卡拍照区</div>
+      <div class="leaf"><span class="leaf-line"></span>📸<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="subsection reveal">
+      <h3>主打卡墙</h3>
+      <p style="color:var(--light-text); font-size:0.9rem;">鲜花拱门/绿植墙背景（2m×2.5m）、新人名字灯牌、麻布地毯+花瓣</p>
+    </div>
+
+    <div class="subsection reveal">
+      <h3>Photo Booth 道具台 <span class="star-badge">⭐ 推荐</span></h3>
+      <div class="card-grid">
+        <div class="card accent">
+          <span class="card-icon">🪧</span>
+          <h3>搞怪手持牌</h3>
+          <p class="card-desc">"She Said Yes"、"终于被拦住了"、"今天我最帅/美"、"份子钱没白来"</p>
+        </div>
+        <div class="card accent-pink">
+          <span class="card-icon">🕶️</span>
+          <h3>拍照神器</h3>
+          <p class="card-desc">墨镜、兔耳朵、天使翅膀、大蝴蝶结、吹泡泡机</p>
+        </div>
+        <div class="card accent-wood">
+          <span class="card-icon">📱</span>
+          <h3>自拍设备</h3>
+          <p class="card-desc">三脚架+手机（蓝牙遥控快门）<br>即影即有：拍立得挂花环</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection reveal">
+      <h3>创意出片角</h3>
+      <div style="display:flex; gap:var(--space-2); flex-wrap:wrap; justify-content:center;">
+        <span style="background:var(--white); padding:14px 28px; border-radius:var(--r-full); box-shadow:0 2px 12px var(--shadow); font-size:0.9rem;">🌸 秋千花艺架</span>
+        <span style="background:var(--white); padding:14px 28px; border-radius:var(--r-full); box-shadow:0 2px 12px var(--shadow); font-size:0.9rem;">🚲 复古自行车+花篮</span>
+        <span style="background:var(--white); padding:14px 28px; border-radius:var(--r-full); box-shadow:0 2px 12px var(--shadow); font-size:0.9rem;">🔤 巨型字母 MR. & MRS.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     四、互动游戏区
+     =========================== -->
+<section class="section" id="games" style="background: var(--warm-white-deep);">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Fun & Games</span>
+      <div class="cn">四、互动游戏区</div>
+      <div class="leaf"><span class="leaf-line"></span>🎯<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card accent-pink reveal">
+        <span class="card-num">GAME 01</span>
+        <span class="card-icon">🎯</span>
+        <h3>套圈盲盒杯 <span class="star-badge">⭐ 推荐</span></h3>
+        <p class="card-desc">阶梯架上摆盲盒杯，杯底贴数字对应奖品。领3个藤圈，套中兑奖。</p>
+        <p class="card-desc" style="margin-top:6px;"><strong>奖品梯度：</strong>糖果 → 多肉 → 小酒版 → 种子纸 → 喜蜜</p>
+        <div class="card-materials">藤圈×15、盲盒杯×40</div>
+      </div>
+
+      <div class="card accent reveal">
+        <span class="card-num">GAME 02</span>
+        <span class="card-icon">✈️</span>
+        <h3>纸飞机穿环挑战</h3>
+        <p class="card-desc">用彩色A5纸折飞机，投向3米外圆环靶，3次机会。</p>
+        <p class="card-desc" style="margin-top:6px;"><strong>彩蛋：</strong>新人提前折"幸运机"挂最高分环，套中触发"新人亲吻"。</p>
+        <div class="card-materials">彩色折纸200张、圆环靶架</div>
+      </div>
+
+      <div class="card accent-pink reveal">
+        <span class="card-num">GAME 03</span>
+        <span class="card-icon">🎨</span>
+        <h3>非遗漆扇 DIY <span class="star-badge">⭐ 推荐</span></h3>
+        <p class="card-desc">素面团扇+大漆颜料漂染：滴漆→搅纹→浸扇→晾干→带走。每人5-8分钟。</p>
+        <div class="card-materials">面扇×50、大漆颜料5色、水盆×4</div>
+      </div>
+
+      <div class="card accent-pink reveal">
+        <span class="card-num">GAME 04</span>
+        <span class="card-icon">🧩</span>
+        <h3>马赛克拼"囍"字 <span class="star-badge">⭐ 推荐</span></h3>
+        <p class="card-desc">超大囍字轮廓板，宾客用彩色马赛克贴片填充。婚后挂新家。</p>
+        <div class="card-materials">囍字KT板、马赛克贴片6色</div>
+      </div>
+
+      <div class="card accent-wood reveal">
+        <span class="card-num">GAME 05</span>
+        <span class="card-icon">🐦</span>
+        <h3>愤怒的小鸟 <span style="font-size:0.7rem; background:var(--wood-light); color:var(--wood); padding:2px 8px; border-radius:var(--r-full); font-weight:600;">备选</span></h3>
+        <p class="card-desc">草坪弹弓射软球击倒绿猪泡沫板，每人3发。</p>
+        <div class="card-materials">安全弹弓×2、软球×10、绿猪泡沫靶×6</div>
+      </div>
+
+      <div class="card accent-wood reveal">
+        <span class="card-num">GAME 06</span>
+        <span class="card-icon">💎</span>
+        <h3>手串 DIY <span style="font-size:0.7rem; background:var(--wood-light); color:var(--wood); padding:2px 8px; border-radius:var(--r-full); font-weight:600;">备选</span></h3>
+        <p class="card-desc">水晶/琉璃珠+弹力线，新娘预设"幸运色"。</p>
+        <div class="card-materials">珠料分格盒5色+、弹力线</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     五、调酒特调区
+     =========================== -->
+<section class="section" id="cocktail">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Cocktail Bar</span>
+      <div class="cn">五、调酒特调区</div>
+      <div class="leaf"><span class="leaf-line"></span>🍹<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="reveal" style="background: var(--white); border-radius: var(--r-lg); padding: var(--space-4); box-shadow: 0 4px 24px var(--shadow); margin-bottom: var(--space-4); text-align:center;">
+      <h3 style="font-family: var(--font-en-display); font-size: 1.4rem; color: var(--morandi-green); margin-bottom: var(--space-1);">"调出心动" 互动特调站 <span style="font-size:0.7rem; background:var(--pinky-light); color:var(--pinky); padding:2px 10px; border-radius:var(--r-full); vertical-align:middle;">⭐</span></h3>
+      <p style="color:var(--light-text); font-size:0.9rem;">宾客为新人调一杯"专属特饮"并命名，当日评选"最佳创意特调"</p>
+    </div>
+
+    <div class="reveal" style="margin-bottom: var(--space-4);">
+      <h3 style="font-size:1.1rem; margin-bottom: var(--space-2); padding-left:0; border:none; color:var(--dark-text);">🥂 基础吧台</h3>
+      <p style="color:var(--light-text); font-size:0.88rem; line-height:1.9;">
+        苏打水 / 雪碧 / 汤力水 · 百香果 / 蜜桃 / 青柠汁 · 糖浆（玫瑰/桂花/百香果）· 装饰（薄荷叶 / 水果片 / 食用花 / 小雨伞）
+      </p>
+    </div>
+
+    <div class="reveal" style="margin-bottom: var(--space-4);">
+      <h3 style="font-size:1.1rem; margin-bottom: var(--space-2); padding-left:0; border:none; color:var(--dark-text);">📋 调酒流程</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; font-size:0.85rem;">
+        <span style="background:var(--warm-white-deep); padding:8px 16px; border-radius:var(--r-full);">① 选基酒+果汁+糖浆</span>
+        <span style="color:var(--morandi-green-light);">→</span>
+        <span style="background:var(--warm-white-deep); padding:8px 16px; border-radius:var(--r-full);">② 写特调命名卡+祝福</span>
+        <span style="color:var(--morandi-green-light);">→</span>
+        <span style="background:var(--warm-white-deep); padding:8px 16px; border-radius:var(--r-full);">③ 调酒师辅助完成</span>
+        <span style="color:var(--morandi-green-light);">→</span>
+        <span style="background:var(--pinky-light); padding:8px 16px; border-radius:var(--r-full); color:var(--pinky);">④ 评选当日最佳</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="font-size:1.1rem; margin-bottom: var(--space-2); padding-left:0; border:none; color:var(--dark-text);">📦 物料清单</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>类别</th><th>物品</th><th>数量</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>酒具</td><td>调酒壶、量酒器、吧勺、滤冰器</td><td>各2</td></tr>
+            <tr><td>酒水</td><td>朗姆 / 伏特加 / 金酒（小瓶）</td><td>各2瓶</td></tr>
+            <tr><td>无酒精</td><td>苏打水、果汁、糖浆</td><td>按60人</td></tr>
+            <tr><td>耗材</td><td>冰块（足量）、高脚杯、搅拌棒</td><td>60套</td></tr>
+            <tr><td>装饰</td><td>食用花、水果片、迷你伞、定制吸管</td><td>—</td></tr>
+            <tr><td>互动</td><td>特调命名卡、投票黑板</td><td>50张+1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:var(--space-2); font-size:0.82rem; color:var(--light-text);">🍺 <strong>备选：</strong>精酿啤酒角（3-4款试饮 + 坚果小食）</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     六、主仪式区 ★
+     =========================== -->
+<section class="section" id="ceremony" style="background: linear-gradient(180deg, var(--warm-white-deep) 0%, var(--pinky-light) 200%);">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">The Ceremony</span>
+      <div class="cn">六、主仪式区 ★ 全场核心</div>
+      <div class="leaf"><span class="leaf-line"></span>💒<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="reveal" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:var(--space-2); margin-bottom:var(--space-4);">
+      <div style="background:var(--white); border-radius:var(--r-md); padding:var(--space-3); box-shadow:0 4px 20px var(--shadow);">
+        <strong style="color:var(--morandi-green);">📍 位置</strong>
+        <p style="font-size:0.88rem; margin-top:6px;">草坪正中央，背靠花艺拱门</p>
+      </div>
+      <div style="background:var(--white); border-radius:var(--r-md); padding:var(--space-3); box-shadow:0 4px 20px var(--shadow); grid-column:1/-1;">
+        <strong style="color:var(--morandi-green);">🌸 布置</strong>
+        <p style="font-size:0.88rem; margin-top:6px;">花艺拱门（3m宽鲜花+绿植）、仪式通道（花瓣+地毯）、两侧花路引×8、白色折叠椅×60</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="font-size:1.2rem; margin-bottom:var(--space-3); padding-left:14px; border-left:4px solid var(--pinky); color:var(--dark-text);">⏳ 仪式流程</h3>
+      <div class="ceremony-flow">
+        <div class="flow-item">
+          <div class="flow-time">16:10</div>
+          <div class="flow-content"><strong>暖场</strong><span>背景音乐，宾客入座</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:15</div>
+          <div class="flow-content"><strong>First Look</strong><span>新郎背对草坪，新娘从拱门走入，第一眼对视</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:20</div>
+          <div class="flow-content"><strong>入场</strong><span>新娘挽父亲沿花瓣通道走向拱门，父亲交接新郎</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:25</div>
+          <div class="flow-content"><strong>证婚词</strong><span>主持人/证婚人致辞</span></div>
+        </div>
+        <div class="flow-item star">
+          <div class="flow-time">16:30</div>
+          <div class="flow-content"><strong>誓言环节</strong><span>新人面对面读亲手写的誓言</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:35</div>
+          <div class="flow-content"><strong>交换戒指</strong><span>伴娘递上戒指，互戴</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:38</div>
+          <div class="flow-content"><strong>亲吻 & 宣布</strong><span>"你可以亲吻新娘了" → 全场欢呼</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:40</div>
+          <div class="flow-content"><strong>抛花束</strong><span>单身宾客集合，新娘背抛</span></div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-time">16:45</div>
+          <div class="flow-content"><strong>大合照</strong><span>全体宾客拱门前合影</span></div>
+        </div>
+        <div class="flow-item" style="border-bottom:none;">
+          <div class="flow-time">16:50</div>
+          <div class="flow-content"><strong>仪式结束</strong><span>引导宾客前往调酒区 / 晚餐区</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:var(--space-5);">
+      <h3 style="font-size:1.2rem; margin-bottom:var(--space-3); padding-left:14px; border-left:4px solid var(--morandi-green); color:var(--dark-text);">📦 仪式区物料</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>类别</th><th>物品</th><th>数量</th></tr>
+          </thead>
+          <tbody>
+            <tr><td rowspan="5">核心布景</td><td>鲜花花艺拱门</td><td>1（3m宽）</td></tr>
+            <tr><td>仪式通道地毯</td><td>1条（8-10m）</td></tr>
+            <tr><td>花瓣</td><td>2大篮</td></tr>
+            <tr><td>花路引</td><td>8对</td></tr>
+            <tr><td>"Just Married"木牌</td><td>1</td></tr>
+            <tr><td rowspan="3">音响</td><td>便携蓝牙音箱</td><td>2</td></tr>
+            <tr><td>无线麦克风</td><td>2</td></tr>
+            <tr><td>充电宝</td><td>2</td></tr>
+            <tr><td rowspan="2">座椅</td><td>白色折叠椅</td><td>60</td></tr>
+            <tr><td>装饰椅垫</td><td>60</td></tr>
+            <tr><td rowspan="5">仪式道具</td><td>戒指盒（鲜花装饰）</td><td>1</td></tr>
+            <tr><td>手捧花</td><td>1</td></tr>
+            <tr><td>誓言卡</td><td>2</td></tr>
+            <tr><td>胸花 / 腕花</td><td>2</td></tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td rowspan="2">氛围</td><td>暖白灯串</td><td>3串</td></tr>
+            <tr><td>泡泡机</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:var(--space-5);">
+      <h3 style="font-size:1.2rem; margin-bottom:var(--space-2); padding-left:14px; border-left:4px solid var(--pinky); color:var(--dark-text);">🎵 仪式音乐建议</h3>
+      <div class="music-list">
+        <div class="music-item"><span class="music-icon">🎵</span><div><span class="music-label">暖场</span> <span class="music-name">Canon in D / A Thousand Years / Marry Me</span></div></div>
+        <div class="music-item"><span class="music-icon">👀</span><div><span class="music-label">First Look</span> <span class="music-name">Edelweiss</span></div></div>
+        <div class="music-item"><span class="music-icon">💐</span><div><span class="music-label">入场</span> <span class="music-name">Wedding March</span></div></div>
+        <div class="music-item"><span class="music-icon">💍</span><div><span class="music-label">誓言/戒指</span> <span class="music-name">Perfect / Until I Found You</span></div></div>
+        <div class="music-item"><span class="music-icon">💋</span><div><span class="music-label">亲吻</span> <span class="music-name">Signed, Sealed, Delivered</span></div></div>
+        <div class="music-item"><span class="music-icon">🌸</span><div><span class="music-label">抛花</span> <span class="music-name">Single Ladies</span></div></div>
+        <div class="music-item"><span class="music-icon">👨‍👩‍👧‍👦</span><div><span class="music-label">合照</span> <span class="music-name">Beautiful Day / Good as Hell</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     七、全区域物料总清单
+     =========================== -->
+<section class="section" id="materials">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Budget Overview</span>
+      <div class="cn">七、全区域物料总清单</div>
+      <div class="leaf"><span class="leaf-line"></span>💰<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="reveal" style="max-width:600px; margin:0 auto;">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>区域</th><th style="text-align:right;">预估费用</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>签到区</td><td style="text-align:right;">¥800 - 1,500</td></tr>
+            <tr><td>拍照区</td><td style="text-align:right;">¥1,500 - 3,000</td></tr>
+            <tr><td>游戏区</td><td style="text-align:right;">¥1,200 - 2,000</td></tr>
+            <tr><td>调酒区</td><td style="text-align:right;">¥1,500 - 3,000</td></tr>
+            <tr><td>主仪式区</td><td style="text-align:right;">¥3,000 - 6,000</td></tr>
+            <tr><td>公共</td><td style="text-align:right;">¥500 - 1,000</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>合计</td><td style="text-align:right;">¥8,500 - 16,500</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     八、草坪布局俯视图
+     =========================== -->
+<section class="section" id="map" style="background: var(--warm-white-deep);">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Lawn Layout</span>
+      <div class="cn">八、草坪布局俯视图</div>
+      <div class="leaf"><span class="leaf-line"></span>🗺️<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="lawn-map reveal">
+      <div class="map-grid">
+        <!-- 上方调酒区 -->
+        <div class="map-zone bar-area" style="background:rgba(196,168,130,0.25);">
+          <span class="zone-icon">🍹</span>
+          <span class="zone-name">调酒特调区</span>
+          <span class="zone-detail">互动吧台 + 精酿角</span>
+        </div>
+
+        <!-- 左侧拍照区 -->
+        <div class="map-zone photo-area" style="background:rgba(232,180,184,0.25);">
+          <span class="zone-icon">📸</span>
+          <span class="zone-name">大卡拍照区</span>
+          <span class="zone-detail">花拱墙 + 道具台</span>
+        </div>
+
+        <!-- 中央仪式区 -->
+        <div class="map-zone ceremony-area">
+          <span class="zone-icon">💒</span>
+          <span class="zone-name">主仪式区</span>
+          <span class="zone-detail">花拱门 + 通道 + 座椅×60</span>
+        </div>
+
+        <!-- 右侧游戏区 -->
+        <div class="map-zone game-area" style="background:rgba(123,153,120,0.25);">
+          <span class="zone-icon">🎪</span>
+          <span class="zone-name">互动游戏区</span>
+          <span class="zone-detail">套圈 · 漆扇 · 纸飞机</span>
+        </div>
+
+        <!-- 下方入口 -->
+        <div class="map-zone entry-area" style="background:rgba(196,168,130,0.15);">
+          <span class="zone-icon">🚪</span>
+          <span class="zone-name">入口 · 迎宾签到区</span>
+          <span class="zone-detail">拍立得签到墙 + 签到台</span>
+        </div>
+      </div>
+
+      <div class="map-legend">
+        <span><span class="dot-sm" style="background:rgba(232,180,184,0.5);"></span>拍照区</span>
+        <span><span class="dot-sm" style="background:rgba(247,227,229,0.8);"></span>仪式区</span>
+        <span><span class="dot-sm" style="background:rgba(123,153,120,0.4);"></span>游戏区</span>
+        <span><span class="dot-sm" style="background:rgba(196,168,130,0.4);"></span>调酒/入口</span>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:var(--space-3); font-size:0.82rem; color:var(--light-text);">
+      📐 入口在最下方 → 签到区在入口处 → 主仪式区在正中央 → 左侧拍照区 → 右侧游戏区 → 上方调酒区
+    </p>
+  </div>
+</section>
+
+<!-- ===========================
+     九、布置 Tips
+     =========================== -->
+<section class="section" id="tips">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="en">Pro Tips</span>
+      <div class="cn">九、布置 Tips</div>
+      <div class="leaf"><span class="leaf-line"></span>💡<span class="leaf-line"></span></div>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-item reveal"><div class="tip-num">1</div><div class="tip-content">主仪式区是视觉重心 — <strong>花拱门投入最大预算</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">2</div><div class="tip-content">仪式朝向 — 拱门朝东或东南，<strong>下午逆光剪影绝美</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">3</div><div class="tip-content">灯串提前布好 — 拱门+通道+调酒区，<strong>傍晚切换梦幻模式</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">4</div><div class="tip-content">泡泡机在亲吻时启动 — <strong>零成本效果炸裂</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">5</div><div class="tip-content">每个游戏点立<strong>手写玩法木牌</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">6</div><div class="tip-content">浅色麻布地毯铺游戏区 — <strong>光脚也能玩</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">7</div><div class="tip-content">防晒霜、驱蚊液、草帽篮 — <strong>户外刚需</strong></div></div>
+      <div class="tip-item reveal"><div class="tip-num">8</div><div class="tip-content">音箱提前测试 — <strong>仪式音乐是灵魂</strong></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+     Footer
+     =========================== -->
+<footer class="footer">
+  <div class="footer-flower">🌿 🌸 🌿</div>
+  <p>💚 方案整理自小红书高赞案例 | 2026</p>
+</footer>
+
+<!-- ===========================
+     JavaScript
+     =========================== -->
+<script>
+(function() {
+  'use strict';
+
+  // 移动端菜单切换
+  var navToggle = document.getElementById('navToggle');
+  var navMenu = document.getElementById('navMenu');
+  navToggle.addEventListener('click', function() {
+    navMenu.classList.toggle('open');
+  });
+
+  // 点击导航链接后关闭菜单
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navMenu.classList.remove('open');
+    });
+  });
+
+  // 导航栏滚动阴影
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 20) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // IntersectionObserver — 淡入动画
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(function(el) { observer.observe(el); });
+  } else {
+    // 降级：直接显示
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // 导航高亮当前区域
+  var sections = document.querySelectorAll('.section[id]');
+  var navLinks = navMenu.querySelectorAll('a');
+
+  if ('IntersectionObserver' in window) {
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute('id');
+          navLinks.forEach(function(link) {
+            link.classList.toggle('active',
+              link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(function(s) { sectionObserver.observe(s); });
+  }
+})();
+</script>
+
+</body>
+</html>
