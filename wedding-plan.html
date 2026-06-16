@@ -143,40 +143,82 @@ body {
 }
 
 .ref-image img {
-  max-width: 600px;
+  max-width: 300px;
   width: 100%;
   border-radius: var(--r-md);
-  box-shadow: 0 8px 30px var(--shadow);
+  box-shadow: 0 6px 20px var(--shadow);
   border: 3px solid var(--white);
-  transition: transform var(--t-normal);
+  cursor: zoom-in;
+  transition: transform var(--t-normal), box-shadow var(--t-normal);
 }
 
 .ref-image img:hover {
-  transform: scale(1.02);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 36px rgba(123, 153, 120, 0.28);
 }
 
 .ref-image .ref-caption {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--light-text);
   margin-top: var(--space-1);
 }
 
 /* 横排参考图（餐饮区） */
 .ref-image-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2);
   margin: var(--space-3) 0;
 }
 
 .ref-image-row .ref-image {
   margin: 0;
+  flex: 0 0 200px;
+}
+
+.ref-image-row .ref-image img {
+  max-width: 200px;
 }
 
 @media (max-width: 768px) {
   .ref-image-row {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
   }
+  .ref-image-row .ref-image,
+  .ref-image-row .ref-image img {
+    max-width: 260px;
+  }
+}
+
+/* 灯箱 Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+  animation: fadeIn 0.25s ease;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ===========================
@@ -1644,6 +1686,25 @@ tfoot td {
     sections.forEach(function(s) { sectionObserver.observe(s); });
   }
 })();
+  // 灯箱：点击参考图放大
+  var lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = '<img src="" alt="放大查看" />';
+  document.body.appendChild(lightbox);
+  var lightboxImg = lightbox.querySelector('img');
+
+  document.querySelectorAll('.ref-image img').forEach(function(img) {
+    img.addEventListener('click', function() {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+  lightbox.addEventListener('click', function() {
+    lightbox.classList.remove('active');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
 </script>
 
 </body>
