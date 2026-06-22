@@ -1,0 +1,15 @@
+wedding-imgs/
+doc/
+java-coding-worktest/
+springboot-mybatis-plus/
+springboot-camunda/
+java-coding-algorithms/
+amqp-demo/
+tuya-pulsar-sdk-java/
+obsidian/
+logs/
+skills/
+pom.xml
+*.py
+*.xlsx
+*.pdf

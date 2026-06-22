@@ -9,7 +9,7 @@ status: done
 priority: high
 assignee: agent
 created: 2026-06-12
-updated: 2026-06-16
+updated: 2026-06-18
 patch: S10-resource-binding-backend
 deadline: null
 branch: feature/attribute-management
@@ -297,11 +297,12 @@ yarn build
 **Current**: 前后端全量完成（F001–F009 + F022 + F024–F026 + F027–F029）
 
 ## 当前状态快照
+## 当前状态快照
 
-- 最后更新：2026-06-16
-- 当前进展：前后端全量完成（F001–F009 + F022 + F024–F026 + F027–F029）；所有 Feature done
-- 下次启动入口：收尾验收或新需求
-- 待续位置：无
+- 最后更新：2026-06-18
+- 当前进展：一期全量完成（F001–F009 + F022 + F024–F029）；二期全量完成（F030–F036）；属性默认值全量完成（F046–F054，后端 S19 + 前端 S20）
+- 下次启动入口：三期（实时属性），工作目录 `l4-res-admin`
+- 待续位置：三期执行计划 > 阶段十七
 
 ## 阻塞项
 
@@ -824,6 +825,852 @@ npm test
 ```
 
 ## 进度日志
+
+---
+
+## 二期执行计划
+
+> 依赖：一期全量完成（F001–F029）且 F022 backfill 已验证通过（`profile_complete_flag IS NULL` 数量为 0）。
+
+### 目标
+
+- 支持类型新增必填属性后为已有资源异步补录空值记录（当前一期只重算完整度，不写 value 记录）
+- 资源列表支持按完整度筛选（`profileComplete=true|false`）
+- 管理员可批量补录某属性在多个资源上的值
+- 类型属性统计 Tab 落地（填充率、缺失数等）
+
+### 范围
+
+**包含**
+- F030：类型新增必填属性时触发空值记录异步补录（后端）
+- F031：资源列表 `profileComplete` 筛选参数（后端）
+- F032：批量补录属性值接口（后端）
+- F033：静态属性统计接口（后端）
+- F034：资源列表完整度筛选 UI（前端）
+- F035：批量补录 UI（前端）
+- F036：类型属性统计 Tab（前端）
+
+**不包含**
+- Elasticsearch 接入（按架构方案，数据量大时再评估）
+- realtime 属性（三期）
+
+### 会话规划
+
+| 会话        | 工作目录                 | Feature     | 可以开始的条件    |
+| --------- | -------------------- | ----------- | ---------- |
+| S12       | `l4-res-atomization` | F030 + F031 | 一期全量验收通过   |
+| S13       | `l4-res-atomization` | F032 + F033 | S12 完成     |
+| S14 ‖ S12 | `l4-res-admin`       | F034        | S12 完成即可并行 |
+| S15 ‖ S13 | `l4-res-admin`       | F035        | S13 完成即可并行 |
+| S16 ‖ S13 | `l4-res-admin`       | F036        | S13 完成即可并行 |
+
+### 开场提示模板
+
+**后端会话（S12/S13）：**
+```
+我在实现 task-l4-res-attribute-management 任务计划二期，后端项目 l4-res-atomization。
+请先读：
+- 架构方案：~/appstore/project/java-coding/obsidian/projects/arch-l4-res-device-type-attribute-management.md
+- 任务计划：~/appstore/project/java-coding/obsidian/tasks/task-l4-res-attribute-management.md
+S13已完成。当前实现二期 [F034]，请读任务计划「二期执行计划」章节后开始。
+```
+
+**前端会话（S14–S16）：**
+```
+我在实现 task-l4-res-attribute-management 任务计划二期，前端项目 l4-res-admin。
+请先读任务计划：~/appstore/project/java-coding/obsidian/tasks/task-l4-res-attribute-management.md
+后端 S12/S13 以及S15 ‖ S13已完成。当前实现 [F036]，请读二期前端章节后开始。
+```
+
+---
+
+### 后端（l4-res-atomization）
+
+#### 阶段十二：补录 + 筛选
+
+- [x] F030：类型新增必填属性时触发空值记录异步补录
+- [x] F031：资源列表 `profileComplete` 筛选参数
+
+**回归验收：**
+```bash
+npx tsc --noEmit
+npm test -- --testPathPattern="attribute-backfill|resource-attribute|completeness"
+npm test
+```
+
+---
+
+#### 阶段十三：批量补录 + 统计
+
+- [x] F032：批量补录属性值接口
+- [x] F033：静态属性统计接口
+
+**回归验收：**
+```bash
+npx tsc --noEmit
+npm test
+```
+
+---
+
+### 前端（l4-res-admin）
+
+#### 阶段十四：资源列表完整度筛选（依赖 S12 F031）
+
+- [x] F034：资源列表完整度筛选 UI
+
+**回归验收：**
+```bash
+tsc -b
+yarn test
+```
+
+---
+
+#### 阶段十五：批量补录 UI（依赖 S13 F032）
+
+- [x] F035：批量补录 UI（`AttributeBulkFillModal`）
+
+**回归验收：**
+```bash
+tsc -b
+yarn test
+yarn build
+```
+
+---
+
+#### 阶段十六：统计 Tab（依赖 S13 F033）
+
+- [x] F036：类型属性统计 Tab（`TypeAttributeStatisticsTab`，当前 disabled）
+
+**回归验收：**
+```bash
+tsc -b
+yarn test
+yarn build
+```
+
+---
+
+### 二期 Feature 清单
+
+| ID | Feature | 验收标准 | Status | Commit |
+|----|---------|---------|--------|--------|
+| F030 | 类型新增必填属性异步补录空值记录 | 新增 required 绑定后受影响资源均有对应 `res_resource_attribute_value` 记录（`attr_value=null`）；`tsc --noEmit` 通过；单元测试补充 | done | |
+| F031 | 资源列表 `profileComplete` 筛选 | `?profileComplete=false` 只返回明确 false 的资源，不包含 null；`tsc --noEmit` 通过 | done | |
+| F032 | 批量补录属性值接口 | 批量 upsert 成功；权限校验（非管理员 403）；attrId 不在资源属性集合返回 400；`tsc --noEmit` 通过 | done | |
+| F033 | 静态属性统计接口 | 返回 `totalResources/filledCount/missingCount/fillRate`；`tsc --noEmit` 通过 | done | |
+| F034 | 资源列表完整度筛选 UI | `tsc -b` 通过；筛选"未完善"只包含明确 false；不选时不传参 | done | |
+| F035 | 批量补录 UI | `tsc -b` + `yarn build` 通过；管理员可批量填写并提交；成功后刷新列表 | done | |
+| F036 | 类型属性统计 Tab | `tsc -b` + `yarn build` 通过；Tab 从 disabled 变为可用；填充率展示正确 | done | |
+
+---
+
+### 各 Feature 详细说明（二期）
+
+#### F030 — 类型新增必填属性时触发空值记录异步补录
+
+**问题背景**：一期 POST 新增 required 属性绑定到类型时，只投递了 completeness Bull job 重算完整度，但受影响资源不会自动获得对应的 `res_resource_attribute_value` 记录（`attr_value=null`）。导致用户打开属性 Tab 时，该属性按"无记录补空"规则展示，但每次都是即时计算，无法在 DB 层过滤/统计。
+
+**实现**：以下三个场景均需投递补录 job（对应 completeness job 的同等触发时机）：
+
+| 触发场景 | 触发文件 |
+|---|---|
+| POST 新增必填属性绑定（`requiredFlag=true`） | `parent-type-attribute.service.ts` / `resource-type-attribute.service.ts` |
+| PATCH `requiredFlag: false→true`（改为必填） | 同上 |
+| PATCH `enabledFlag: false→true` 且 `requiredFlag=true`（重新启用必填绑定） | 同上 |
+
+在上述场景的 completeness job 投递之后，再投递一个补录 job：
+
+新建 `AttributeBackfillModule`，queue 名称 `attribute-backfill`，job payload：
+```typescript
+{ scope: 'parentType' | 'subtype'; id: string; attrId: string; editableFlag: boolean }
+```
+
+Processor 逻辑：
+1. 按 scope 查出受影响资源集合（复用 completeness processor 的查询逻辑）
+2. 分批（200 条/批）执行：
+   ```typescript
+   await tx.resResourceAttributeValue.createMany({
+     data: resourceIds.map(resourceId => ({
+       resourceId, attrId, attrValue: null,
+       editableFlag, valueSource: 'system', updatedBy: null,
+     })),
+     skipDuplicates: true,
+   })
+   ```
+
+只补录 `requiredFlag=true` 的属性；非必填属性不触发，永久按需补空。
+
+注意：现有资源类型变更（F009）在 `createMany({ skipDuplicates: true })` 步骤已经写入新类型必填属性空值记录，无需补录。F030 只针对"类型已存在资源后新增必填属性"场景。
+
+---
+
+#### F031 — 资源列表 `profileComplete` 筛选参数
+
+**后端改动**：`src/modules/resource/resource.service.ts` 的 `getList` 方法：
+
+1. `GetResourcesQueryDto` 增加 `profileComplete?: boolean`
+2. Prisma `where` 条件：
+   ```typescript
+   ...(profileComplete !== undefined && {
+     profileCompleteFlag: profileComplete  // true→true, false→false（不加 null）
+   })
+   ```
+   严格等值匹配，不使用 `profileCompleteFlag: { not: true }` 等写法，避免把 null 纳入 false 筛选。
+
+---
+
+#### F032 — 批量补录属性值接口
+
+```
+POST /internal/resources/bulk/attribute-values
+```
+
+RequestBody：
+```typescript
+{
+  attrId: string;
+  items: Array<{ resourceId: string; attrValue: string | null }>;
+}
+```
+
+规则：
+- 仅管理员可调用（AdminGuard）；普通用户 403
+- `items` 数量上限 500，超过返回 400
+- 服务端对每个 `resourceId` 校验 `attrId` 是否在其最终属性集合内（不在则跳过并记录到 `errors` 列表）
+- 忽略类型层 `editable_flag` 限制（批量补录是管理员操作）；忽略实例层 `editable_flag`（同强制更新语义）
+- 批量 upsert：`value_source='import'`，`updated_by`=当前操作人
+- 全部写入后，统一投递 completeness job（对每个涉及的 `resource_subtype_id` 或 `parentType` 投一个 job，不逐条同步重算）
+- **审计**：每条成功 upsert 的记录写 `operation_audit_log`（`entityType='resourceAttribute'`、`action='bulkImport'`），与 upsert 在同一事务内；绕过 `editable_flag` 属于管理员操作，必须留审计痕迹
+- 响应返回 `{ successCount, errors: Array<{ resourceId, reason }> }`
+
+---
+
+#### F033 — 静态属性统计接口
+
+```
+GET /internal/resource-parent-types/:parentType/attribute-statistics
+GET /internal/resource-types/:typeId/attribute-statistics
+```
+
+响应（数组，每项对应一个属性）：
+```typescript
+{
+  attrId: string;
+  attrCode: string;
+  attrName: string;
+  totalResources: number;    // 该类型下活跃资源总数
+  filledCount: number;       // attr_value IS NOT NULL AND TRIM(attr_value) != '' 的记录数
+  missingCount: number;      // totalResources - filledCount（含无记录的资源）
+  fillRate: number;          // filledCount / totalResources，保留两位小数
+}
+```
+
+实现：应用层计算（一期数据量不大，不接 ES）：
+1. 查该类型下活跃资源 IDs
+2. 查类型最终属性集合（合并视图）
+3. 查 `res_resource_attribute_value` 中该 attrId 有值的 resourceId 集合
+4. 做差集得出 missingCount
+
+边界：`totalResources = 0` 时 `fillRate` 返回 `null`（前端展示"—"），不返回 NaN 或 0。
+
+---
+
+#### F034 — 资源列表完整度筛选 UI
+
+**改动文件**：`src/pages/resources/index.tsx`
+
+在现有筛选栏末尾增加"资料完整度"筛选项（`Select`，宽度与其他筛选项一致）：
+
+```
+全部  /  完整  /  未完善
+```
+
+筛选值映射：
+- 全部 → 不传 `profileComplete` 参数
+- 完整 → `profileComplete=true`
+- 未完善 → `profileComplete=false`
+
+`ResourceListQuery` 增加 `profileComplete?: boolean`。
+
+注意：下拉选项不提供"未计算（null）"选项，过渡期数据自然过滤。
+
+---
+
+#### F035 — 批量补录 UI
+
+**新建文件**：`src/pages/resource-types/AttributeBulkFillModal.tsx`
+
+入口：`TypeAttributeOwnTab` 的属性行操作区增加"批量补录"按钮（管理员可见）。
+
+Modal 内容：
+- 顶部说明：当前补录属性名称 + 数据类型
+- 表格：展示该类型下所有资源（分页 20 条/页），列为 `资源名称 / 资源 ID / 当前值 / 新值（可编辑）`
+- **资源列表加载**：
+  - `scope='parent'` → `GET /internal/resources?type={parentType}&pageSize=20&page={current}`
+  - `scope='subtype'` → `GET /internal/resources?resourceSubtypeId={typeId}&pageSize=20&page={current}`
+- **当前值加载**：Modal 打开后对当前页所有 resourceId 逐条调 `GET /resources/{resourceId}/attributes` 取当前 attrId 的值；已知 N+1，一期数据量可接受，二期不引入新接口
+- "新值"列根据 `dataType` 渲染对应控件（与 `ResourceAttributeTab` 行内控件保持一致）
+- 底部：`[取消] [提交补录]`（只提交"新值"有改动的行，`attrValue` 未变动的行不发送）
+- 提交调用 `POST /internal/resources/bulk/attribute-values`
+- 响应成功后展示 `successCount` / 失败记录（若有）
+- 同 `resourceAttribute.service.ts` 新增 `bulkFillAttributeValues(dto)` 方法
+
+**新增 service 方法**（`resourceAttribute.service.ts`）：
+```typescript
+bulkFillAttributeValues(dto: {
+  attrId: string;
+  items: Array<{ resourceId: string; attrValue: string | null }>;
+}): Promise<{ successCount: number; errors: Array<{ resourceId: string; reason: string }> }>
+```
+
+---
+
+#### F036 — 类型属性统计 Tab
+
+**新建文件**：`src/pages/resource-types/TypeAttributeStatisticsTab.tsx`
+
+**改动文件**：`src/pages/resource-types/TypeAttributeDrawer.tsx`（统计 Tab 当前为 `disabled: true, children: null`，改为 `disabled: false` + 引入 `TypeAttributeStatisticsTab`；无需删文案）
+
+`TypeAttributeStatisticsTab` Props：
+```typescript
+interface Props {
+  scope: TypeAttributeScope;
+}
+```
+
+内容：
+- 调用 `GET .../attribute-statistics` 接口（`typeAttribute.service.ts` 新增 `getParentTypeAttributeStatistics` / `getTypeAttributeStatistics`）
+- 表格展示：`attrName / attrCode / totalResources / filledCount / missingCount / 填充率（进度条或百分比）`
+- 按 `fillRate` 升序排列（填充最差的排前面）
+
+**新增 service 方法**（`typeAttribute.service.ts`）：
+```typescript
+getParentTypeAttributeStatistics(parentType: string): Promise<AttributeStatItem[]>
+getTypeAttributeStatistics(typeId: string): Promise<AttributeStatItem[]>
+```
+
+---
+
+## 属性默认值执行计划
+
+> 依赖：二期全量完成（F030–F036）。
+>
+> **设计说明**：Pure Lazy 策略——默认值永不写 DB，仅在 `isAttributeFilled()` 中运行时 fallback。`defaultFillsRequired` 控制默认值是否满足必填完整度计算。详见架构方案「属性默认值」章节。
+
+### 目标
+
+- `res_attribute_definition` 支持 `default_value`（录入时填写，对所有绑定该属性的资源全局即时生效）
+- `default_fills_required` 控制默认值是否算作完整度满足（物理测量属性设 false；全局配置类属性设 true）
+- `GET /resources/{id}/attributes` 响应携带 `defaultValue`、`defaultFillsRequired`，前端展示灰色占位
+
+### 范围
+
+**包含**
+- F046：Prisma migration（`default_value`、`default_fills_required`）
+- F047：属性定义接口扩展 + 枚举项删除冲突检查
+- F048：提取 `isAttributeFilled()` 工具函数
+- F049：同步完整度路径重构（含 `mergeTypeAttributes` 返回值扩展）
+- F050：Bull processor 补 JOIN + 改用 `isAttributeFilled()`
+- F051：新增完整度触发场景（默认值变更影响完整度时投递 Bull job）
+- F052：`GET /attributes` 响应字段扩展
+- F053：前端属性定义表单扩展（`defaultValue` + `defaultFillsRequired`）
+- F054：`ResourceAttributeTab` 三态展示 + 未修改不发请求
+
+**不包含**
+- 绑定层差异默认值（只在定义层维护，对所有资源全局一致）
+- `default_value` 写入 DB（Pure Lazy，默认值运行时 fallback 不持久化）
+
+### 会话规划
+
+| 会话 | 工作目录 | Feature | 可以开始的条件 |
+|------|---------|---------|--------------|
+| S19 | `l4-res-atomization` | F046 + F047 + F048 + F049 + F050 + F051 + F052 | 二期全量完成 |
+| S20 ‖ S19 | `l4-res-admin` | F053 + F054 | S19 F052 接口完成（或契约稳定后 mock 先行） |
+
+### 开场提示模板
+
+**后端会话（S19）：**
+```
+我在实现 task-l4-res-attribute-management 属性默认值功能，后端项目 l4-res-atomization。
+请先读：
+- 架构方案：~/appstore/project/java-coding/obsidian/projects/arch-l4-res-device-type-attribute-management.md（重点看「属性默认值」章节）
+- 任务计划：~/appstore/project/java-coding/obsidian/tasks/task-l4-res-attribute-management.md（属性默认值执行计划章节）
+当前实现 [F046 + F047 + F048 + F049 + F050 + F051 + F052]，请读对应章节后开始。
+```
+
+**前端会话（S20）：**
+```
+我在实现 task-l4-res-attribute-management 属性默认值功能，前端项目 l4-res-admin。
+请先读任务计划：~/appstore/project/java-coding/obsidian/tasks/task-l4-res-attribute-management.md
+后端 S19 已完成。当前实现 [F053 + F054]，请读属性默认值前端章节后开始。
+```
+
+---
+
+### 后端（l4-res-atomization）
+
+#### 阶段十九：默认值基础设施 + 完整度重构
+
+- [ ] F046：Prisma migration（`default_value`、`default_fills_required`）
+- [ ] F047：属性定义接口扩展 + 枚举项删除冲突检查
+- [ ] F048：提取 `isAttributeFilled()` 工具函数
+- [ ] F049：同步完整度路径重构
+- [ ] F050：Bull processor 补 JOIN + 改用 `isAttributeFilled()`
+- [ ] F051：新增完整度触发场景
+- [ ] F052：`GET /attributes` 响应字段扩展
+
+**回归验收：**
+```bash
+npx tsc --noEmit
+npm test -- --testPathPattern="attribute-merge|resource-attribute|completeness|completeness-calc"
+npm test
+```
+
+---
+
+### 前端（l4-res-admin）
+
+#### 阶段二十：属性默认值 UI
+
+- [ ] F053：属性定义表单扩展（`defaultValue` + `defaultFillsRequired`）
+- [ ] F054：`ResourceAttributeTab` 三态展示 + 未修改不发请求
+
+**回归验收：**
+```bash
+tsc -b
+yarn test
+yarn build
+```
+
+---
+
+### 属性默认值 Feature 清单
+### 属性默认值 Feature 清单
+
+| ID | Feature | 验收标准 | Status | Commit |
+|----|---------|---------|--------|--------|
+| F046 | Prisma migration `default_value` + `default_fills_required` | 迁移文件生成；`npx prisma migrate status` 通过；Prisma client 含两个新字段 | done | S19 |
+| F047 | 属性定义接口扩展 + 枚举项删除冲突检查 | POST/PATCH 接收 `defaultValue`/`defaultFillsRequired`；按 `data_type` 格式校验；删除枚举项前检查 `definition.default_value` 冲突；`tsc --noEmit` 通过 | done | S19 |
+| F048 | 提取 `isAttributeFilled()` | 函数在 `completeness-calc.util.ts`；签名 `(attrValue, definitionDefaultValue, defaultFillsRequired) → boolean`；单元测试覆盖 6 个边界 case | done | S19 |
+| F049 | 同步完整度路径重构 | 4 个同步触发点均改用 `isAttributeFilled()`；`MergedAttrItem` 新增 `definitionDefaultValue`、`defaultFillsRequired` 字段；`tsc --noEmit` 通过 | done | S19 |
+| F050 | Bull processor 重构 | processor JOIN `res_attribute_definition` 取 `default_value` 和 `default_fills_required`；改用 `isAttributeFilled()`；`tsc --noEmit` 通过 | done | S19（由 F049 自动覆盖，无额外改动） |
+| F051 | 新增完整度触发场景 | `PATCH default_value`（跨有值/null 边界且 `default_fills_required=true`）→ 投递 Bull job；`PATCH default_fills_required` 变更 → 投递该属性所有绑定 scope 的 Bull job；`tsc --noEmit` 通过 | done | S19 |
+| F052 | GET /attributes 响应字段扩展 | 每个属性行含 `defaultValue: string \| null`、`defaultFillsRequired: boolean`；`tsc --noEmit` 通过 | done | S19 |
+| F053 | 前端属性定义表单扩展 | `AttributeDefinitionQuickCreateModal` + 属性定义管理页均支持 `defaultValue` 输入和 `defaultFillsRequired` checkbox；`enum` 类型限 Select 控件选枚举项；`tsc -b` 通过 | done | S20 |
+| F054 | ResourceAttributeTab 三态展示 + 未修改不发请求 | 无值时展示默认值（灰色占位，可见）；无值且无默认时展示「—」；有值时正常展示；未修改时点保存不发 PATCH 请求；`tsc -b` 通过 | done | S20 |
+
+---
+
+### 各 Feature 详细说明（属性默认值）
+
+#### F046 — Prisma migration
+
+`prisma/schema.prisma` 中 `ResAttributeDefinition` 新增两个字段（仅定义层，`ResTypeAttributeBinding` 不改动）：
+
+```prisma
+defaultValue         String?  @map("default_value")
+defaultFillsRequired Boolean  @default(false) @map("default_fills_required")
+```
+
+执行：`npm run prisma:migrate:dev -- --name add_attribute_default_value`
+
+---
+
+#### F047 — 属性定义接口扩展 + 枚举项删除冲突检查
+
+**`POST /internal/attribute-definitions` 和 `PATCH /internal/attribute-definitions/:attrId` 扩展：**
+
+新增可选字段：`defaultValue?: string | null`、`defaultFillsRequired?: boolean`
+
+格式校验（按 `data_type`，`defaultValue` 非空时执行）：
+- `string` → 不限制
+- `number` → `isNaN(Number(v))` 为 true 时返回 400
+- `boolean` → 不为 `'true'` / `'false'` 时返回 400
+- `date` → `dayjs(v).isValid()` 为 false 时返回 400
+- `enum` → 不在 `enumOptions` 列表中时返回 400
+- `json` → `JSON.parse(v)` 抛出时返回 400
+
+**枚举项删除冲突检查（`PATCH enumOptions` 删除枚举项时）：**
+
+若 `definition.default_value` 等于被删除的枚举项之一，返回 400：
+```
+"该属性的默认值「XXX」是被删除的枚举项之一，请先修改默认值再删除枚举项。"
+```
+
+---
+
+#### F048 — 提取 `isAttributeFilled()` 工具函数
+
+**新建（或追加到现有工具文件）：** `src/modules/completeness/completeness-calc.util.ts`
+
+```typescript
+export function isAttributeFilled(
+  attrValue: string | null | undefined,
+  definitionDefaultValue: string | null,
+  defaultFillsRequired: boolean,
+): boolean {
+  if (attrValue != null && attrValue.trim() !== '') return true;
+  if (definitionDefaultValue != null && defaultFillsRequired) return true;
+  return false;
+}
+```
+
+单元测试 6 个 case：
+1. `attrValue='foo'`，任意默认值 → true
+2. `attrValue=''`，无默认 → false
+3. `attrValue=null`，有默认 + `defaultFillsRequired=true` → true
+4. `attrValue=null`，有默认 + `defaultFillsRequired=false` → false
+5. `attrValue=null`，无默认 → false
+6. `attrValue='  '`（纯空白），有默认 + `defaultFillsRequired=true` → true
+
+---
+
+#### F049 — 同步完整度路径重构
+
+**改动文件：** `src/modules/attribute/attribute-merge.util.ts`
+
+`MergedAttrItem` 新增字段：
+```typescript
+definitionDefaultValue: string | null;
+defaultFillsRequired: boolean;
+```
+
+`mergeTypeAttributes` 查询时 JOIN `res_attribute_definition`，取 `default_value` 和 `default_fills_required`，填充到每项 `MergedAttrItem`。
+
+**同步触发点（4 处），均改用 `isAttributeFilled()`：**
+
+| 触发文件 | 场景 |
+|---------|------|
+| `resource-attribute.service.ts` `computeAndUpdateCompleteness` | 单条属性值更新后重算 |
+| `resource.service.ts` 资源创建事务内 `computeAndUpdateCompleteness` | 创建时初始化完整度 |
+| `resource.service.ts` 类型变更后 `computeAndUpdateCompleteness` | 类型变更后重算 |
+| `resource-attribute.service.ts` F026 资源本级绑定变更场景 | 资源本级绑定操作后重算 |
+
+每处用 `isAttributeFilled(item.attrValue, item.definitionDefaultValue, item.defaultFillsRequired)` 替换原有 `item.attrValue != null && item.attrValue.trim() !== ''` 判断。
+
+---
+
+#### F050 — Bull processor 重构
+
+**改动文件：** `src/modules/completeness/completeness.processor.ts`
+
+批量查询资源属性值时同步 JOIN `res_attribute_definition`，取 `default_value`、`default_fills_required`。计算每条属性是否填充时改用 `isAttributeFilled()`（从 F048 导入）。
+
+---
+
+#### F051 — 新增完整度触发场景
+
+**改动文件：** `src/modules/attribute-definition/attribute-definition.service.ts`
+
+在 `PATCH` 方法执行完字段更新后，检查以下两种情况并投递 Bull job：
+
+1. **`default_value` 变更** 且当前 `default_fills_required=true`：
+   - 旧值 null → 新值非 null（从无到有）
+   - 旧值非 null → 新值 null（从有到无）
+   - 上述两种情况均需按绑定层反查该 `attrId` 的所有 scope 并逐一投递
+
+2. **`default_fills_required` 变更**（`false→true` 或 `true→false`）：
+   - 查 `res_type_attribute_binding` 找到所有绑定该 `attrId` 的 scope，逐一投递 Bull job
+
+> `default_fills_required` 变更影响面最大，可加简单防抖（相同 attrId 3 秒内合并为一次投递）。
+
+---
+
+#### F052 — GET /attributes 响应字段扩展
+
+**改动文件：** `src/modules/resource-attribute/resource-attribute.service.ts`
+
+`GET /internal/resources/{resourceId}/attributes` 响应 DTO 每项新增：
+```typescript
+defaultValue: string | null;      // 来自 definition.default_value
+defaultFillsRequired: boolean;    // 来自 definition.default_fills_required
+```
+
+`mergeTypeAttributes` 已在 F049 中将两字段带出，此处直接透传即可。
+
+---
+
+#### F053 — 前端属性定义表单扩展
+
+**改动文件：**
+- `src/pages/resource-types/AttributeDefinitionQuickCreateModal.tsx`
+- `src/pages/attribute-definitions/AttributeDefinitionsPage.tsx`（属性定义管理页编辑表单）
+
+新增表单字段：
+
+- **`defaultValue`** 输入框：根据 `dataType` 渲染对应控件（与 `ResourceAttributeTab` 控件类型保持一致）；`enum` 类型用 Select，选项来自 `enumOptions`
+- **`defaultFillsRequired`** Checkbox：标签文案"默认值满足必填（适用于可选型全局配置属性）"
+
+`updateAttributeDefinition` / `createAttributeDefinition` 请求体透传两字段。
+
+验收：`tsc -b` 通过；`enum` 类型可选默认枚举项；删除该枚举项时后端返回 400，前端展示错误文案。
+
+---
+
+#### F054 — ResourceAttributeTab 三态展示 + 未修改不发请求
+
+**改动文件：** `src/pages/resources/ResourceAttributeTab.tsx`
+
+**三态展示逻辑（每行属性）：**
+
+| 状态 | 条件 | 展示 |
+|------|------|------|
+| 有值 | `attrValue != null && attrValue.trim() !== ''` | 正常展示 `attrValue` |
+| 无值有默认 | `attrValue` 空，且 `defaultValue != null` | 灰色 Placeholder 样式展示 `defaultValue`（标注"默认"，不视为已填写） |
+| 无值无默认 | `attrValue` 空，且 `defaultValue == null` | 展示"—" |
+
+**未修改不发请求：**
+
+每行独立编辑时，仅当用户实际修改了值（新值 ≠ 原 `attrValue`）才在点击保存时发送 PATCH 请求；用户开启编辑后未修改直接点保存，静默跳过（不发请求，不报错）。
+
+**`ResourceAttrItem` 类型扩展（`resourceAttribute.service.ts`）：**
+```typescript
+defaultValue?: string | null;
+defaultFillsRequired?: boolean;
+```
+
+---
+
+## 三期执行计划
+
+> **前置条件：** 二期全量完成（F030–F036）。
+>
+> **阻塞说明：** 三期基础设施（F037–F041）可独立完成并用手动写入测试数据验证。上报链路（F042-TODO）需 IoT 侧对齐后才能完成端到端真实数据流。F042-TODO 未完成前不做生产上线。
+
+### 目标
+
+- 建设实时属性状态表并扩展合并算法，使 `GET /resources/{id}/attributes` 返回实时属性组
+- 类型绑定放开 realtime 限制，绑定 UI 支持实时属性配置
+- 资源属性 Tab 展示实时数据（只读，带上报时间）
+- 为上报链路预留 TODO 占位，待 IoT 对齐后实现
+
+### 范围
+
+**包含（可立即实现）**
+- F037：`res_resource_realtime_state` Prisma migration
+- F038：`mergeRealtimeAttributes` 函数 + `GET /attributes` 扩展
+- F039：解除类型绑定 realtime 限制（`parent` / `subtype` scope 放开；`resource` scope 保持 static-only）
+- F040：前端绑定 UI 调整（`AttributeDefinitionBindingModal` + `AttributeDefinitionQuickCreateModal`）
+- F041：前端 `ResourceAttributeTab` 实时属性展示
+
+**延后（待 TODO 对齐）**
+- F042-TODO：实时上报链路（TODO-1，需 IoT 侧确认接入方式）
+- F043-TODO：`value_number` / `value_json` 冗余字段写入逻辑（TODO-3）
+- F044-TODO：数据时效性处理（TODO-4，过期阈值 + 前端"N 分钟前上报"）
+- F045-TODO：Kafka / Redis 引入判断标准（TODO-6，QPS 阈值 + 延迟基线）
+
+### 会话规划
+
+| 会话 | 工作目录 | Feature | 可以开始的条件 |
+|------|---------|---------|--------------|
+| S17 | `l4-res-atomization` | F037 + F038 + F039 | 二期全量完成 |
+| S18 ‖ S17 | `l4-res-admin` | F040 + F041 | S17 完成（或接口契约稳定后 mock 先行） |
+| S-upload | `l4-res-atomization` | F042-TODO | IoT 侧上报链路对齐后启动 |
+
+### 开场提示模板
+
+**后端会话（S17）：**
+```
+我在实现 task-l4-res-attribute-management 任务计划三期，后端项目 l4-res-atomization。
+请先读：
+- 架构方案：~/appstore/project/java-coding/obsidian/projects/arch-l4-res-device-type-attribute-management.md（重点看「三期：实时属性 > 三期已设计部分」章节）
+- 任务计划：~/appstore/project/java-coding/obsidian/tasks/task-l4-res-attribute-management.md（三期执行计划章节）
+二期全量完成。当前实现 [F037 + F038 + F039]，请读对应章节后开始。
+```
+
+**前端会话（S18）：**
+```
+我在实现 task-l4-res-attribute-management 任务计划三期，前端项目 l4-res-admin。
+请先读任务计划：~/appstore/project/java-coding/obsidian/tasks/task-l4-res-attribute-management.md
+后端 S17 已完成。当前实现 [F040 + F041]，请读三期前端章节后开始。
+```
+
+---
+
+### 后端（l4-res-atomization）
+
+#### 阶段十七：实时属性基础设施
+
+- [ ] F037：`res_resource_realtime_state` Prisma migration
+- [ ] F038：`mergeRealtimeAttributes` + `GET /attributes` 扩展
+- [ ] F039：解除类型绑定 realtime 限制
+
+**回归验收：**
+```bash
+npx tsc --noEmit
+npx prisma migrate status
+npm test -- --testPathPattern="attribute-merge|resource-attribute"
+npm test
+# 手动验证：向 res_resource_realtime_state 写入测试数据，
+# 调用 GET /resources/{id}/attributes 确认响应末尾含 dataCategory='realtime' 行
+```
+
+---
+
+### 前端（l4-res-admin）
+
+#### 阶段十八：绑定 UI + 实时属性展示
+
+- [ ] F040：绑定 UI 调整
+- [ ] F041：`ResourceAttributeTab` 实时属性展示
+
+**回归验收：**
+```bash
+tsc -b
+yarn test
+yarn build
+# 手动验证：类型绑定弹窗可选 realtime 属性定义；
+#          选中 realtime 时 requiredFlag/editableFlag 隐藏；
+#          资源属性 Tab 实时行只读，reportTime=null 时显示"暂无数据"
+```
+
+---
+
+### 三期 Feature 清单
+
+| ID | Feature | 验收标准 | Status | Commit |
+|----|---------|---------|--------|--------|
+| F037 | `res_resource_realtime_state` migration | 迁移文件生成；`npx prisma migrate status` 通过；`tsc --noEmit` 通过 | pending | |
+| F038 | `mergeRealtimeAttributes` + GET /attributes 扩展 | realtime 属性追加在静态组之后；`reportTime` 字段存在；无 realtime 绑定时返回空组；`tsc --noEmit` + 单元测试通过 | pending | |
+| F039 | 解除类型绑定 realtime 限制 | parent/subtype scope POST 允许 realtime 定义；resource scope POST 仍返回 400；`tsc --noEmit` 通过 | pending | |
+| F040 | 前端绑定 UI 调整 | `tsc -b` 通过；选 realtime 时隐藏 requiredFlag/editableFlag；QuickCreateModal dataCategory 可选；ResourceAttributeBindingModal 不变 | pending | |
+| F041 | ResourceAttributeTab 实时属性展示 | `tsc -b` + `yarn build` 通过；realtime 行只读；reportTime 展示；无"强制更新"入口 | pending | |
+| F042-TODO | 实时上报链路 | 待 TODO-1 对齐后补充验收标准 | blocked | |
+| F043-TODO | value_number/value_json 写入 | 待 TODO-3 对齐后补充 | blocked | |
+| F044-TODO | 数据时效性 | 待 TODO-4 对齐后补充 | blocked | |
+| F045-TODO | Kafka/Redis 引入判断 | 待 TODO-6 对齐后补充 | blocked | |
+
+---
+
+### 各 Feature 详细说明（三期）
+
+#### F037 — `res_resource_realtime_state` Prisma migration
+
+在 `prisma/schema.prisma` 新增模型（架构方案已定义，直接落 schema）：
+
+```prisma
+model ResResourceRealtimeState {
+  id          String   @id @default(cuid())
+  resourceId  String   @map("resource_id") @db.VarChar(128)
+  attrId      String   @map("attr_id") @db.VarChar(128)
+  attrValue   String?  @map("attr_value")
+  valueNumber Decimal? @map("value_number")
+  valueJson   Json?    @map("value_json")
+  reportTime  DateTime @map("report_time")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([resourceId, attrId])
+  @@index([resourceId])
+  @@map("res_resource_realtime_state")
+}
+```
+
+执行：`npm run prisma:migrate:dev -- --name add_realtime_state`
+
+> **注意**：`reportTime` 字段非空（无 `?`），写入记录时必须携带设备上报时间戳，不允许为空；`attrValue`、`valueNumber`、`valueJson` 均可空。
+
+---
+
+#### F038 — `mergeRealtimeAttributes` + `GET /attributes` 扩展
+
+**新增函数**（`src/modules/attribute/attribute-merge.util.ts`）：
+
+见架构方案「合并算法扩展」章节，完整接口签名与查询逻辑已定义。
+
+关键约束：
+- `required` 恒 `false`，`editable` 恒 `false`
+- `sourceScope` 只支持 `'parent' | 'subtype'`，无 `'resource'`
+- `resourceSubtypeId=null` 时只查 parent scope 的 realtime 绑定
+
+**改动**（`src/modules/resource-attribute/resource-attribute.service.ts`）：
+
+```typescript
+// GET /resources/{resourceId}/attributes service 方法末尾追加
+const realtimeAttrs = await mergeRealtimeAttributes(parentType, resourceSubtypeId, resourceId, this.prisma);
+return [...staticAttrs, ...realtimeAttrs];
+```
+
+响应 DTO 新增字段 `reportTime?: string | null`；**静态属性行统一返回 `reportTime: null`，不省略该字段**，避免前端 `undefined` vs `null` 差异引发判断问题。
+
+> **参数顺序说明**：`mergeRealtimeAttributes(parentType, resourceSubtypeId, resourceId, prisma)` 中 `prisma` 在第 4 位，与 `mergeTypeAttributes(parentType, resourceSubtypeId, prisma, resourceId?)` 顺序不同。这是为了保持现有 `mergeTypeAttributes` 签名不变，实现时在函数定义处加注释说明，避免后续维护混淆。
+
+**单元测试补充（3 个 case）：**
+- 有 realtime 绑定且有上报值 → 返回含 `attrValue` 和 `reportTime`
+- 有 realtime 绑定但无上报值 → 返回 `attrValue=null`、`reportTime=null`
+- 无 realtime 绑定 → realtime 组为空数组
+
+---
+
+#### F039 — 解除类型绑定 realtime 限制
+
+**改动文件：**
+- `src/modules/parent-type-attribute/parent-type-attribute.service.ts`
+- `src/modules/resource-type/resource-type-attribute.service.ts`
+
+删除或改写现有校验：
+
+```typescript
+// 删除：
+if (def.dataCategory !== 'static') {
+  throw new AppException('ATTR_BINDING_INVALID_CATEGORY', '一期只允许绑定 static 属性', 400);
+}
+```
+
+`resource-attribute.service.ts`（资源本级绑定 POST）**保持不变**，维持 static-only 校验。
+
+**测试：**
+- `parent` scope POST realtime 定义成功（原 static-only 限制已移除）。
+- `subtype` scope POST realtime 定义成功。
+- `resource` scope POST realtime 定义返回 400（static-only 校验保持不变）。
+- `parent`/`subtype` scope POST `enabled_flag=false` 的定义仍返回 400（`enabled_flag` 校验不受影响）。
+
+---
+
+#### F040 — 前端绑定 UI 调整
+
+**改动文件：**
+- `src/pages/resource-types/AttributeDefinitionBindingModal.tsx`
+- `src/pages/resource-types/AttributeDefinitionQuickCreateModal.tsx`
+
+**`AttributeDefinitionBindingModal` 改动：**
+- 搜索 Select 去掉 `dataCategory: 'static' as const` 过滤，改为不传（展示所有 `enabledFlag=true` 的定义）
+- 选中定义后读取其 `dataCategory`，若为 `'realtime'`：
+  - 隐藏 `requiredFlag` 字段
+  - 隐藏 `editableFlag` 字段
+  - 表单底部展示提示："实时属性由设备自动上报，不支持人工编辑，也不参与资料完整度计算。"
+
+**`AttributeDefinitionQuickCreateModal` 改动：**
+- `dataCategory` 从 `hidden` 固定 `'static'` 改为可见 `Select`（选项：静态属性 / 实时属性）
+- 选中 `'realtime'` 时联动隐藏 `requiredFlag` 和 `editableFlag` 表单项
+- `dataCategory` 初始值保持 `'static'`（不改变默认行为）
+
+**`ResourceAttributeBindingModal` 不动。**
+
+---
+
+#### F041 — `ResourceAttributeTab` 实时属性展示
+
+**改动文件：** `src/pages/resources/ResourceAttributeTab.tsx`
+
+三期接口响应末尾会追加 `dataCategory='realtime'` 的行，`ResourceAttributeTab` 需要：
+
+- `dataCategory='realtime'` 的行：渲染只读展示控件（不可编辑），不展示"编辑/保存"按钮
+- 展示 `reportTime`：
+  - 有值 → 转为相对时间（如"3 分钟前"）或格式化绝对时间
+  - `null` → 展示"暂无数据"
+- 不展示"强制更新"图标（`editable=false` 且 `dataCategory='realtime'`）
+- 在静态属性组与实时属性组之间插入分组标题或分隔线（如"实时属性"小标题），提升可读性
+
+`ResourceAttrItem` 类型扩展（`resourceAttribute.service.ts`）：
+```typescript
+reportTime?: string | null;  // 仅 realtime 属性携带
+```
+
+---
 
 ## 备注
 

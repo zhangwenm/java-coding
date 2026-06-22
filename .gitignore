@@ -54,3 +54,4 @@ test-output/
 
 # 大文件
 *.pptx
+.vercel
