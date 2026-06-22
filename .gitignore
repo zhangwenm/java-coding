@@ -55,3 +55,36 @@ test-output/
 # 大文件
 *.pptx
 .vercel
+
+# === 公司内部内容（仅本地保留，不推送到远程） ===
+# obsidian 工作文档
+obsidian/projects/
+obsidian/tasks/
+obsidian/meta/
+obsidian/daily/
+obsidian/inbox/多厂商MQTT动态连接管理方案.md
+# obsidian 涉及公司业务的 guides
+obsidian/guides/guide-data-push-*
+obsidian/guides/guide-hdos-*
+obsidian/guides/guide-docker-postgres-ddl-import.md
+obsidian/guides/guide-cmux-workflow.md
+obsidian/guides/guide-daily-task-log.md
+# doc 公司内部文档
+doc/mine/online-skill/
+doc/mine/self-skill/
+doc/mine/adjust/
+doc/mine/原始skill/
+doc/mine/work/
+doc/mine/hdos-*.md
+doc/mine/hessian-multi-agent-guide.md
+doc/mine/设备控制相关接口.docx
+# 工作测试代码（含公司API调用）
+java-coding-worktest/
+# 公司数据导出
+springboot-mybatis-plus/output/
+springboot-mybatis-plus/src/test/java/com/geekzhang/mybatisplus/config/TestConfig.java
+springboot-mybatis-plus/src/test/java/com/geekzhang/mybatisplus/dao/EsDeviceQueryTest.java
+springboot-mybatis-plus/src/test/java/com/geekzhang/mybatisplus/dao/MeituanMapperTest.java
+# 公司业务数据文件
+数据对比结果.xlsx
+JSON数据对比结果.xlsx
